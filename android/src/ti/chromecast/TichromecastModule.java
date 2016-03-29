@@ -51,8 +51,6 @@ public class TichromecastModule extends KrollModule {
 	private MediaRouter.Callback mMediaRouterCallback;
 	private CastDevice mSelectedDevice;
 	
-
-	
 	public TichromecastModule() {
 		super();
 	}
@@ -62,7 +60,6 @@ public class TichromecastModule extends KrollModule {
 	public static void onAppCreate(TiApplication app) {
 	}
 
-	// Methods
 	@Kroll.method(runOnUiThread = true)
 	public boolean startMediaRouter(@Kroll.argument(optional = true)KrollFunction callback) {
 		Log.d(LCAT, "startMediaRouter called");
