@@ -9,8 +9,9 @@
 package ti.chromecast;
 
 import org.appcelerator.kroll.KrollModule;
-import  	java.util.HashMap;
-import  	java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.common.Log;
 //import org.appcelerator.kroll.common.TiConfig;
@@ -54,7 +55,7 @@ public class TichromecastModule extends KrollModule {
 	private CastDevice mSelectedDevice;
 	private KrollFunction krollRouteCallback;
 	private KrollFunction krollAppCallback;
-	
+
 	public TichromecastModule() {
 		super();
 	}
@@ -65,7 +66,8 @@ public class TichromecastModule extends KrollModule {
 	}
 
 	@Kroll.method(runOnUiThread = true)
-	public boolean startMediaRouter(@Kroll.argument(optional = true)KrollFunction routeCallback) {
+	public boolean startMediaRouter(
+			@Kroll.argument(optional = true) KrollFunction routeCallback) {
 		krollRouteCallback = routeCallback;
 		Log.d(LCAT, "startMediaRouter called");
 		// Configure Cast device discovery
@@ -75,7 +77,8 @@ public class TichromecastModule extends KrollModule {
 			Log.e(LCAT, "MediaRouter created");
 		} catch (Exception e) {
 			Log.e(LCAT, "exception: " + e.getMessage());
-			//exception: The media router service must only be accessed on the application's main thread.
+			// exception: The media router service must only be accessed on the
+			// application's main thread.
 			return false;
 		}
 		try {
@@ -91,26 +94,30 @@ public class TichromecastModule extends KrollModule {
 		}
 		mMediaRouterCallback = new MyMediaRouterCallback();
 		return true;
-		
 
 	}
+
 	@Kroll.method
-	public boolean selectDeviceAndStartApp(String device,String AppID) {
+	public boolean selectDeviceAndStartApp(String device, String AppID) {
 		return false;
-	}	
-	
+	}
+
 	/**
 	 * Callback for MediaRouter events
 	 */
 	private class MyMediaRouterCallback extends MediaRouter.Callback {
-
 		@Override
 		public void onRouteSelected(MediaRouter router, RouteInfo info) {
 			Log.d(LCAT, "onRouteSelected");
-			  // TODO: test if callback is KrollFunction
-			ArrayList<HashMap<String, String>> routelist;
-			krollRouteCallback.call(getKrollObject(), routelist);
-			
+			// TODO: test if callback is KrollFunction
+			String[] stringArray = { "a", "b", "c", "d", "e" };
+			ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(stringArray));
+			HashMap<String, ArrayList> result = new HashMap<String, ArrayList>();
+			//result.put("routes",arrayList);
+		
+			if (krollRouteCallback instanceof KrollFunction) {
+				krollRouteCallback.callAsync(getKrollObject(), result);
+			}
 			// Handle the user route selection.
 			mSelectedDevice = CastDevice.getFromBundle(info.getExtras());
 
