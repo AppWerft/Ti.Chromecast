@@ -11,7 +11,6 @@ package ti.chromecast;
 import org.appcelerator.kroll.KrollModule;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Arrays;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.common.Log;
 //import org.appcelerator.kroll.common.TiConfig;
@@ -31,6 +30,7 @@ import android.support.v7.media.MediaRouter.RouteInfo;
 import android.support.v7.media.MediaRouter.Callback;
 
 import android.content.Context;
+import android.os.Message;
 
 import com.google.android.gms.cast.ApplicationMetadata;
 import com.google.android.gms.cast.Cast;
@@ -56,6 +56,10 @@ public class TichromecastModule extends KrollModule {
 	private KrollFunction krollRouteCallback;
 	private KrollFunction krollAppCallback;
 
+	private static final int MSG_FIRST_ID = KrollModule.MSG_LAST_ID + 1;
+	private static final int MSG_MEDIAROUTER_START = MSG_FIRST_ID + 100;
+	protected static final int MSG_LAST_ID = MSG_FIRST_ID + 999;
+
 	public TichromecastModule() {
 		super();
 	}
@@ -65,22 +69,32 @@ public class TichromecastModule extends KrollModule {
 	public static void onAppCreate(TiApplication app) {
 	}
 
-	@Kroll.method(runOnUiThread = true)
-	public boolean startMediaRouter(
-			@Kroll.argument(optional = true) KrollFunction routeCallback) {
+	/**
+	 * message handler
+	 * @param message
+	 */
+	@Override
+	public boolean handleMessage(Message msg) {
+		switch (msg.what) {
+			case MSG_MEDIAROUTER_START: {
+				Context context = TiApplication.getInstance().getApplicationContext();
+				mMediaRouter = MediaRouter.getInstance(context);
+				return true;
+			}
+			default: {
+				return super.handleMessage(msg);
+			}
+		}
+	}
+
+	@Kroll.method()
+	public boolean startMediaRouter(@Kroll.argument(optional = true)KrollFunction routeCallback) {
 		krollRouteCallback = routeCallback;
 		Log.d(LCAT, "startMediaRouter called");
 		// Configure Cast device discovery
-		Context context = TiApplication.getInstance().getApplicationContext();
-		try {
-			mMediaRouter = MediaRouter.getInstance(context);
-			Log.e(LCAT, "MediaRouter created");
-		} catch (Exception e) {
-			Log.e(LCAT, "exception: " + e.getMessage());
-			// exception: The media router service must only be accessed on the
-			// application's main thread.
-			return false;
-		}
+		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
+
+
 		try {
 			String app_id = "" + TiRHelper.getApplicationResource("app_id");
 			mMediaRouteSelector = new MediaRouteSelector.Builder()
