@@ -9,6 +9,8 @@
 package ti.chromecast;
 
 import org.appcelerator.kroll.KrollModule;
+import  	java.util.HashMap;
+import  	java.util.ArrayList;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.common.Log;
 //import org.appcelerator.kroll.common.TiConfig;
@@ -50,6 +52,8 @@ public class TichromecastModule extends KrollModule {
 	private MediaRouteSelector mMediaRouteSelector;
 	private MediaRouter.Callback mMediaRouterCallback;
 	private CastDevice mSelectedDevice;
+	private KrollFunction krollRouteCallback;
+	private KrollFunction krollAppCallback;
 	
 	public TichromecastModule() {
 		super();
@@ -61,7 +65,8 @@ public class TichromecastModule extends KrollModule {
 	}
 
 	@Kroll.method(runOnUiThread = true)
-	public boolean startMediaRouter(@Kroll.argument(optional = true)KrollFunction callback) {
+	public boolean startMediaRouter(@Kroll.argument(optional = true)KrollFunction routeCallback) {
+		krollRouteCallback = routeCallback;
 		Log.d(LCAT, "startMediaRouter called");
 		// Configure Cast device discovery
 		Context context = TiApplication.getInstance().getApplicationContext();
@@ -102,6 +107,10 @@ public class TichromecastModule extends KrollModule {
 		@Override
 		public void onRouteSelected(MediaRouter router, RouteInfo info) {
 			Log.d(LCAT, "onRouteSelected");
+			  // TODO: test if callback is KrollFunction
+			ArrayList<HashMap<String, String>> routelist;
+			krollRouteCallback.call(getKrollObject(), routelist);
+			
 			// Handle the user route selection.
 			mSelectedDevice = CastDevice.getFromBundle(info.getExtras());
 
