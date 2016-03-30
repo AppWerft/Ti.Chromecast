@@ -71,35 +71,40 @@ public class TichromecastModule extends KrollModule {
 
 	/**
 	 * message handler
+	 * 
 	 * @param message
 	 */
 	@Override
 	public boolean handleMessage(Message msg) {
 		switch (msg.what) {
-			case MSG_MEDIAROUTER_START: {
-				Context context = TiApplication.getInstance().getApplicationContext();
-				mMediaRouter = MediaRouter.getInstance(context);
-				return true;
-			}
-			default: {
-				return super.handleMessage(msg);
-			}
+		case MSG_MEDIAROUTER_START: {
+			Context context = TiApplication.getInstance()
+					.getApplicationContext();
+			mMediaRouter = MediaRouter.getInstance(context);
+			return true;
+		}
+		default: {
+			return super.handleMessage(msg);
+		}
 		}
 	}
 
 	@Kroll.method()
-	public boolean startMediaRouter(@Kroll.argument(optional = true)KrollFunction routeCallback) {
+	public boolean startMediaRouter(String AppID,
+			@Kroll.argument(optional = true) KrollFunction routeCallback) {
 		krollRouteCallback = routeCallback;
+		String mAppID;
 		Log.d(LCAT, "startMediaRouter called");
 		// Configure Cast device discovery
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
-
-
+		if (AppID == "DEFAULT_MEDIA_RECEIVER")
+			mAppID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
+		else
+			mAppID = AppID;
 		try {
-			String app_id = "" + TiRHelper.getApplicationResource("app_id");
 			mMediaRouteSelector = new MediaRouteSelector.Builder()
 					.addControlCategory(
-							CastMediaControlIntent.categoryForCast(app_id))
+							CastMediaControlIntent.categoryForCast(mAppID))
 					.build();
 			Log.e(LCAT, "MediaRouteSelector created");
 		} catch (Exception e) {
@@ -125,8 +130,8 @@ public class TichromecastModule extends KrollModule {
 			Log.d(LCAT, "onRouteSelected");
 			// TODO: test if callback is KrollFunction
 			HashMap<String, ArrayList> result = new HashMap<String, ArrayList>();
-			//result.put("routes",arrayList);
-		
+			// result.put("routes",arrayList);
+
 			if (krollRouteCallback instanceof KrollFunction) {
 				krollRouteCallback.callAsync(getKrollObject(), result);
 			}

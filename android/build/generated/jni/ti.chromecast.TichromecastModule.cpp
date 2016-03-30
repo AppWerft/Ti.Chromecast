@@ -119,9 +119,9 @@ Handle<Value> TichromecastModule::startMediaRouter(const Arguments& args)
 	}
 	static jmethodID methodID = NULL;
 	if (!methodID) {
-		methodID = env->GetMethodID(TichromecastModule::javaClass, "startMediaRouter", "(Lorg/appcelerator/kroll/KrollFunction;)Z");
+		methodID = env->GetMethodID(TichromecastModule::javaClass, "startMediaRouter", "(Ljava/lang/String;Lorg/appcelerator/kroll/KrollFunction;)Z");
 		if (!methodID) {
-			const char *error = "Couldn't find proxy method 'startMediaRouter' with signature '(Lorg/appcelerator/kroll/KrollFunction;)Z'";
+			const char *error = "Couldn't find proxy method 'startMediaRouter' with signature '(Ljava/lang/String;Lorg/appcelerator/kroll/KrollFunction;)Z'";
 			LOGE(TAG, error);
 				return titanium::JSException::Error(error);
 		}
@@ -129,24 +129,39 @@ Handle<Value> TichromecastModule::startMediaRouter(const Arguments& args)
 
 	titanium::Proxy* proxy = titanium::Proxy::unwrap(args.Holder());
 
+	if (args.Length() < 1) {
+		char errorStringBuffer[100];
+		sprintf(errorStringBuffer, "startMediaRouter: Invalid number of arguments. Expected 1 but got %d", args.Length());
+		return ThrowException(Exception::Error(String::New(errorStringBuffer)));
+	}
 
-	jvalue jArguments[1];
+	jvalue jArguments[2];
 
 
 
 
-	bool isNew_0;
-	if (args.Length() <= 0) {
-		jArguments[0].l = NULL;
-
-	} else {
+	
 	
 	if (!args[0]->IsNull()) {
 		Local<Value> arg_0 = args[0];
 		jArguments[0].l =
-			titanium::TypeConverter::jsValueToJavaObject(env, arg_0, &isNew_0);
+			titanium::TypeConverter::jsValueToJavaString(env, arg_0);
 	} else {
 		jArguments[0].l = NULL;
+	}
+
+	bool isNew_1;
+	if (args.Length() <= 1) {
+		jArguments[1].l = NULL;
+
+	} else {
+	
+	if (!args[1]->IsNull()) {
+		Local<Value> arg_1 = args[1];
+		jArguments[1].l =
+			titanium::TypeConverter::jsValueToJavaObject(env, arg_1, &isNew_1);
+	} else {
+		jArguments[1].l = NULL;
 	}
 	}
 
@@ -161,8 +176,11 @@ Handle<Value> TichromecastModule::startMediaRouter(const Arguments& args)
 
 
 
-			if (isNew_0) {
 				env->DeleteLocalRef(jArguments[0].l);
+
+
+			if (isNew_1) {
+				env->DeleteLocalRef(jArguments[1].l);
 			}
 
 
