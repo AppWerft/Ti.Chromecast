@@ -93,14 +93,16 @@ public class TichromecastModule extends KrollModule {
 	public boolean startMediaRouter(String AppID,
 			@Kroll.argument(optional = true) KrollFunction routeCallback) {
 		krollRouteCallback = routeCallback;
-		String mAppID;
-		Log.d(LCAT, "startMediaRouter called");
-		// Configure Cast device discovery
+		Log.d(LCAT, "========================\nstartMediaRouter called with AppID="+AppID);
+		
+		// in force run main thread:
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
-		if (AppID == "DEFAULT_MEDIA_RECEIVER")
-			mAppID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
-		else
-			mAppID = AppID;
+		
+		// getting appid from cromecast receiver:
+		String	mAppID =  (AppID.equals( "DEFAULT_MEDIA_RECEIVER")) ? mAppID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID : AppID;
+		Log.d(LCAT, "AppId=" + mAppID);
+		
+		// Configure Cast device discovery
 		try {
 			mMediaRouteSelector = new MediaRouteSelector.Builder()
 					.addControlCategory(
@@ -112,13 +114,11 @@ public class TichromecastModule extends KrollModule {
 			return false;
 		}
 		mMediaRouterCallback = new MyMediaRouterCallback();
+		Log.d(LCAT, "MediaRouter.Callback started");
+		// later will come:
+		// java.lang.NoSuchFieldError: No static field mr_user_route_category_name of type I in class 
 		return true;
 
-	}
-
-	@Kroll.method
-	public boolean selectDeviceAndStartApp(String device, String AppID) {
-		return false;
 	}
 
 	/**
@@ -128,24 +128,21 @@ public class TichromecastModule extends KrollModule {
 		@Override
 		public void onRouteSelected(MediaRouter router, RouteInfo info) {
 			Log.d(LCAT, "onRouteSelected");
-			// TODO: test if callback is KrollFunction
-			HashMap<String, ArrayList> result = new HashMap<String, ArrayList>();
-			// result.put("routes",arrayList);
-
+			/*
 			if (krollRouteCallback instanceof KrollFunction) {
-				krollRouteCallback.callAsync(getKrollObject(), result);
+				// krollRouteCallback.callAsync(getKrollObject(), result);
 			}
 			// Handle the user route selection.
 			mSelectedDevice = CastDevice.getFromBundle(info.getExtras());
 
-			// launchReceiver();
+			// launchReceiver();*/
 		}
 
 		@Override
 		public void onRouteUnselected(MediaRouter router, RouteInfo info) {
-			Log.d(LCAT, "onRouteUnselected: info=" + info);
+			//Log.d(LCAT, "onRouteUnselected: info=" + info);
 			// teardown(false);
-			mSelectedDevice = null;
+			//mSelectedDevice = null;
 		}
 	}
 

@@ -5,6 +5,7 @@
 version: 0.0.2
 apiversion: 2
 architectures: armeabi armeabi-v7a x86
+respackage: android.support.v7.mediarouter
 description: Module for realizing of Chromecast Communication
 author: APPWERFT
 license: Specify your license
