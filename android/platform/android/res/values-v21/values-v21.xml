@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values-v21/dimens.xml -->
+    <eat-comment/>
+    <dimen name="ccl_intro_button_margin_bottom">50dp</dimen>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values-v21/styles.xml -->
+    <eat-comment/>
+    <style name="CCLCastDialog" parent="android:Theme.Material.Dialog">
+        <item name="android:windowTitleStyle">@style/CCLCastDialogWindowTitle</item>
+    </style>
+</resources>

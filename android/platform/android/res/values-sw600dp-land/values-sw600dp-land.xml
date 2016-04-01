@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values-sw600dp-land/dimens.xml -->
+    <eat-comment/>
+    <dimen name="ccl_pageview_width">500dp</dimen>
+</resources>

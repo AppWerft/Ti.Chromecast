@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/arrays.xml -->
+    <eat-comment/>
+    <string-array name="ccl_prefs_caption_color_names">
+        <item>White</item>
+        <item>Black</item>
+        <item>Red</item>
+        <item>Yellow</item>
+        <item>Green</item>
+        <item>Cyan</item>
+        <item>Blue</item>
+        <item>Magenta</item>
+    </string-array>
+    <string-array name="ccl_prefs_caption_color_values">
+        <item>#FFFFFF</item> <!-- white -->
+        <item>#000000</item> <!-- black -->
+        <item>#FF0000</item> <!-- red -->
+        <item>#FFFF00</item> <!-- yellow -->
+        <item>#00FF00</item> <!-- green -->
+        <item>#00FFFF</item> <!-- cyan -->
+        <item>#0000FF</item> <!-- blue -->
+        <item>#FF00FF</item> <!-- magenta -->
+    </string-array>
+    <string-array name="ccl_prefs_caption_edge_type_names">
+        <item>None</item>
+        <item>Outline</item>
+        <item>Drop Shadow</item>
+    </string-array>
+    <string-array name="ccl_prefs_caption_edge_type_values">
+        <item>EDGE_TYPE_NONE</item>
+        <item>EDGE_TYPE_OUTLINE</item>
+        <item>EDGE_TYPE_DROP_SHADOW</item>
+    </string-array>
+    <string-array name="ccl_prefs_caption_font_family_names">
+        <item>San-serif</item>
+        <item>Serif</item>
+        <item>Monospace</item>
+    </string-array>
+    <string-array name="ccl_prefs_caption_font_family_values">
+        <item>FONT_FAMILY_SANS_SERIF</item>
+        <item>FONT_FAMILY_SERIF</item>
+        <item>FONT_FAMILY_MONOSPACED_SANS_SERIF</item>
+    </string-array>
+    <string-array name="ccl_prefs_caption_font_scale_names">
+        <item>Very Small</item>
+        <item>Small</item>
+        <item>Normal</item>
+        <item>Large</item>
+        <item>Very Large</item>
+    </string-array>
+    <string-array name="ccl_prefs_caption_font_scale_values">
+        <item>0.5</item>
+        <item>0.75</item>
+        <item>1.0</item>
+        <item>1.5</item>
+        <item>2.0</item>
+    </string-array>
+    <string-array name="ccl_prefs_caption_opacity_names">
+        <item>25%</item>
+        <item>50%</item>
+        <item>75%</item>
+        <item>100%</item>
+    </string-array>
+    <string-array name="ccl_prefs_caption_opacity_values">
+        <item>3F</item>
+        <item>80</item>
+        <item>BF</item>
+        <item>FF</item>
+    </string-array>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/ccl_widgets.xml -->
+    <eat-comment/>
+    <attr format="enum" name="ccl_widget_disconnect_policy">
+        <enum name="invisible" value="1"/>
+        <enum name="gone" value="2"/>
+        <enum name="disabled" value="3"/>
+        <enum name="visible" value="4"/>
+    </attr>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="ccl_blue">#4285f4</color>
+    <color name="ccl_cast_activity_background_color">#000000</color>
+    <color name="ccl_cast_activity_line1_text_color">#E5FFFFFF</color>
+    <color name="ccl_cast_activity_line2_text_color">#E5AAAAAA</color>
+    <color name="ccl_cast_activity_progress_text_color">#E5FFFFFF</color>
+    <color name="ccl_cast_activity_text_color">#FFFFFF</color>
+    <color name="ccl_grey600">#555753</color>
+    <color name="ccl_intro_overlay_background_color">#CC000000</color>
+    <color name="ccl_intro_overlay_button_background_color">#BB33B5E5</color>
+    <color name="ccl_intro_overlay_button_foreground_color">#FFFFFF</color>
+    <color name="ccl_mini_main_background">#FFFFFF</color>
+    <color name="ccl_mini_upcoming_background">#03A9F4</color>
+    <color name="ccl_mini_upcoming_upnext_color">#eeff41</color>
+    <color name="ccl_mr_custom_line_1">#000000</color>
+    <color name="ccl_mr_custom_line_2">#AA000000</color>
+    <color name="ccl_mr_custom_title">#33b5e5</color>
+    <declare-styleable name="CCLClosedCaptionButton"><attr name="ccl_widget_disconnect_policy"/></declare-styleable>
+    <declare-styleable name="CCLIntroOverlay"><attr format="color|reference" name="ccl_IntroBackgroundColor"/><attr format="color|reference" name="ccl_IntroDetailTextColor"/><attr format="color|reference" name="ccl_IntroTitleTextColor"/><attr format="color|reference" name="ccl_IntroButtonBackgroundColor"/><attr format="color|reference" name="ccl_IntroButtonForegroundColor"/><attr format="string|reference" name="ccl_IntroButtonText"/><attr format="reference" name="ccl_IntroSubtitleTextAppearance"/><attr format="reference" name="ccl_IntroTitleTextAppearance"/><attr format="reference" name="ccl_IntroButtonTextAppearance"/><attr format="dimension|reference" name="ccl_IntroFocusRadius"/></declare-styleable>
+    <declare-styleable name="CCLMediaControlButton"><attr format="enum" name="ccl_widget_media_control_type"><enum name="skip_next" value="0"/><enum name="skip_previous" value="1"/><enum name="forward" value="2"/><enum name="rewind" value="3"/></attr><attr format="integer|reference" name="ccl_widget_forward_duration"/><attr format="integer|reference" name="ccl_widget_rewind_duration"/><attr name="ccl_widget_disconnect_policy"/><attr format="enum" name="ccl_widget_next_prev_visibility_policy"><enum name="hidden" value="0"/><enum name="disabled" value="1"/><enum name="visible" value="2"/></attr></declare-styleable>
+    <declare-styleable name="CCLMediaImageView"><attr format="integer" name="ccl_widget_placeholder_drawable"/><attr format="integer" name="ccl_widget_image_index"/><attr name="ccl_widget_disconnect_policy"/></declare-styleable>
+    <declare-styleable name="CCLMediaInfoText"><attr format="enum" name="ccl_widget_info"><enum name="title" value="0"/><enum name="subtitle" value="1"/><enum name="studio" value="2"/><enum name="album_artist" value="3"/><enum name="album_title" value="4"/><enum name="composer" value="5"/><enum name="series_title" value="6"/><enum name="season_number" value="7"/><enum name="episode_number" value="8"/><enum name="release_date" value="9"/></attr><attr name="ccl_widget_disconnect_policy"/></declare-styleable>
+    <declare-styleable name="CCLPlayPauseButton"><attr format="integer" name="ccl_widget_play_drawable"/><attr format="integer" name="ccl_widget_stop_drawable"/><attr format="integer" name="ccl_widget_pause_drawable"/><attr name="ccl_widget_disconnect_policy"/></declare-styleable>
+    <declare-styleable name="CCLProgressBar"><attr name="ccl_widget_disconnect_policy"/></declare-styleable>
+    <declare-styleable name="CCLProgressText"><attr format="enum" name="ccl_widget_type"><enum name="progress" value="0"/><enum name="duration" value="1"/></attr><attr name="ccl_widget_disconnect_policy"/></declare-styleable>
+    <declare-styleable name="CCLSeekBar"><attr format="reference" name="ccl_widget_progress_text"/><attr name="ccl_widget_disconnect_policy"/></declare-styleable>
+    <declare-styleable name="CustomTheme"><attr format="reference" name="CCLIntroOverlayStyle"/></declare-styleable>
+    <declare-styleable name="MiniController"><attr format="boolean" name="auto_setup"/></declare-styleable>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="ccl_captions_dialog_no_message_text_size">18sp</dimen>
+    <dimen name="ccl_captions_dialog_row_text_size">18sp</dimen>
+    <dimen name="ccl_intro_button_margin_bottom">10dp</dimen>
+    <dimen name="ccl_intro_button_margin_right">12dp</dimen>
+    <dimen name="ccl_intro_overlay_focus_radius">35dp</dimen>
+    <dimen name="ccl_intro_text_margin">16dp</dimen>
+    <dimen name="ccl_mini_controller_font_size_line1">15sp</dimen>
+    <dimen name="ccl_mini_controller_font_size_line2">13sp</dimen>
+    <dimen name="ccl_mini_controller_icon_height">64dp</dimen>
+    <dimen name="ccl_mini_controller_icon_width">64dp</dimen>
+    <dimen name="ccl_mini_upcoming_play_margin">8dp</dimen>
+    <dimen name="ccl_notification_image_size">75dp</dimen>
+    <dimen name="ccl_pageview_width">300dp</dimen>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="ccl_cancel">Cancel</string>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/captions.xml -->
+    <eat-comment/>
+    <string name="ccl_caption">Caption</string>
+    <string name="ccl_caption_audio">Audio</string>
+    <string name="ccl_caption_no_audio_tracks">No Audio Tracks Available</string>
+    <string name="ccl_caption_no_text_tracks">No Text Tracks Available</string>
+    <string name="ccl_caption_no_tracks_available"> No tracks available</string>
+    <string name="ccl_caption_subtitles">Subtitles</string>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="ccl_casting_to_device">Casting to %1$s</string>
+    <string name="ccl_disconnect">Disconnect</string>
+    <string name="ccl_error">Error</string>
+    <string name="ccl_failed_app_launch_timeout">The request to launch the application has timed out!</string>
+    <string name="ccl_failed_authorization_timeout">Authorization timed out</string>
+    <string name="ccl_failed_no_connection">No connection to the cast device is present</string>
+    <string name="ccl_failed_no_connection_short">No connection</string>
+    <string name="ccl_failed_no_connection_trans">Connection to the cast device has been lost. Application is trying to re-establish the connection, if possible. Please wait for a few seconds and try again.</string>
+    <string name="ccl_failed_perform_action">Failed to perform the action</string>
+    <string name="ccl_failed_receiver_player_error">Receiver player has encountered a severe error</string>
+    <string name="ccl_failed_seek">Failed to seek to the new position on the cast device</string>
+    <string name="ccl_failed_setting_volume">Failed to set the volume</string>
+    <string name="ccl_failed_status_request">Failed to sync up with the cast device</string>
+    <string name="ccl_failed_to_connect">Could not connect to the device</string>
+    <string name="ccl_failed_to_find_app">The application you are trying to launch is not available on your Cast device</string>
+    <string name="ccl_failed_to_launch_app">Failed to launch application</string>
+    <string name="ccl_failed_to_pause">Failed to pause the playback of media</string>
+    <string name="ccl_failed_to_play">Failed to start the playback of media</string>
+    <string name="ccl_failed_to_set_track_style">Failed to update the captions style.</string>
+    <string name="ccl_failed_to_stop">Failed to stop the playback of media</string>
+    <string name="ccl_forward">Forward</string>
+    <string name="ccl_info_na">Information Not Available</string>
+    <string name="ccl_intro_overlay_button_text">@android:string/ok</string>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/captions.xml -->
+    <eat-comment/>
+    <string name="ccl_key_caption_background_color">ccl_caption_background_color</string>
+    <string name="ccl_key_caption_background_opacity">ccl_caption_font_background_opacity</string>
+    <string name="ccl_key_caption_edge_type">ccl_caption_edge_type</string>
+    <string name="ccl_key_caption_enabled">ccl_caption_enabled</string>
+    <string name="ccl_key_caption_font_family">ccl_caption_font_family</string>
+    <string name="ccl_key_caption_font_scale">ccl_caption_font_scale</string>
+    <string name="ccl_key_caption_text_color">ccl_caption_text_color</string>
+    <string name="ccl_key_caption_text_opacity">ccl_caption_text_opacity</string>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="ccl_live">Live</string>
+    <string name="ccl_loading">Loading…</string>
+    <string name="ccl_media_route_menu_title">Play on…</string>
+    <string name="ccl_mini_upnext">Up Next</string>
+    <string name="ccl_no_media_info">No media information available</string>
+    <string name="ccl_none">None</string>
+    <string name="ccl_off">Off</string>
+    <string name="ccl_ok">OK</string>
+    <string name="ccl_on">On</string>
+    <string name="ccl_pause">Pause</string>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/captions.xml -->
+    <eat-comment/>
+    <string name="ccl_pick_tracks">Tracks</string>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="ccl_play">Play</string>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/captions.xml -->
+    <eat-comment/>
+    <string name="ccl_prefs_caption_background_color_title">Background Color</string>
+    <string name="ccl_prefs_caption_background_color_value_default">#000000</string>
+    <string name="ccl_prefs_caption_background_opacity_title">Background Opacity</string>
+    <string name="ccl_prefs_caption_background_opacity_value_default">FF</string>
+    <string name="ccl_prefs_caption_disabled">Disabled</string>
+    <string name="ccl_prefs_caption_edge_color_title">Edge Color</string>
+    <string name="ccl_prefs_caption_edge_type_title">Edge Type</string>
+    <string name="ccl_prefs_caption_edge_type_value_default">EDGE_TYPE_NONE</string>
+    <string name="ccl_prefs_caption_enabled">Enabled</string>
+    <string name="ccl_prefs_caption_enabled_title">Caption Availability</string>
+    <string name="ccl_prefs_caption_font_family_title">Font Family</string>
+    <string name="ccl_prefs_caption_font_family_value_default">FONT_FAMILY_SERIF</string>
+    <string name="ccl_prefs_caption_font_scale_title">Text Size</string>
+    <string name="ccl_prefs_caption_font_scale_value_default">1.0</string>
+    <string name="ccl_prefs_caption_text_color_title">Text Color</string>
+    <string name="ccl_prefs_caption_text_color_value_default">#FFFFFF</string>
+    <string name="ccl_prefs_caption_text_opacity_title">Text Opacity</string>
+    <string name="ccl_prefs_caption_text_opacity_value_default">FF</string>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="ccl_rewind">Rewind</string>
+    <string name="ccl_skip_next">Skip Next</string>
+    <string name="ccl_skip_previous">Skip Previous</string>
+    <string name="ccl_version">2.8.1</string>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="CCLCastDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowTitleStyle">@style/CCLCastDialogWindowTitle</item>
+    </style>
+    <style name="CCLCastDialogWindowTitle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/ccl_mr_custom_title</item>
+    </style>
+    <!-- From: file:/Users/falko/Downloads/CastCompanionLibrary-android-2.8.1/res/values/intro_overlay.xml -->
+    <eat-comment/>
+    <style name="CCLIntroOverlay">
+        <item name="ccl_IntroTitleTextAppearance">@style/TextAppearance.CCLIntroOverlay.Title</item>
+        <item name="ccl_IntroSubtitleTextAppearance">@style/TextAppearance.CCLIntroOverlay.Subtitle</item>
+        <item name="ccl_IntroButtonTextAppearance">@style/TextAppearance.CCLIntroOverlay.Button</item>
+        <item name="ccl_IntroBackgroundColor">@color/ccl_intro_overlay_background_color</item>
+        <item name="ccl_IntroButtonText">@string/ccl_intro_overlay_button_text</item>
+        <item name="ccl_IntroButtonBackgroundColor">@color/ccl_intro_overlay_button_background_color</item>
+        <item name="ccl_IntroButtonForegroundColor">@color/ccl_intro_overlay_button_foreground_color</item>
+        <item name="ccl_IntroFocusRadius">@dimen/ccl_intro_overlay_focus_radius</item>
+    </style>
+    <style name="TextAppearance.CCLIntroOverlay.Button" parent="android:style/TextAppearance">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="TextAppearance.CCLIntroOverlay.Subtitle" parent="android:style/TextAppearance">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="TextAppearance.CCLIntroOverlay.Subtitle.Light">
+        <item name="android:textColor">#333333</item>
+        <item name="android:shadowColor">#FF0000</item>
+        <item name="android:shadowRadius">0</item>
+    </style>
+    <style name="TextAppearance.CCLIntroOverlay.Title" parent="android:style/TextAppearance.Large">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="TextAppearance.CCLIntroOverlay.Title.Light">
+        <item name="android:shadowRadius">0</item>
+    </style>
+</resources>
