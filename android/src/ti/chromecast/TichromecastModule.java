@@ -8,93 +8,20 @@
  */
 package ti.chromecast;
 
-//import org.appcelerator.kroll.common.TiConfig;
-import org.appcelerator.kroll.KrollFunction;
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
-import org.appcelerator.kroll.common.Log;
 import org.appcelerator.titanium.TiApplication;
-
-import android.content.Context;
-import android.os.Message;
-//import android.support.v7.app.MediaRouteDialogFactory;
-import android.support.v7.media.MediaRouteSelector;
-import android.support.v7.media.MediaRouter;
-
-import com.google.android.gms.cast.CastDevice;
-import com.google.android.gms.cast.CastMediaControlIntent;
-//import android.media.MediaRouter;
-
-
-
 
 
 @Kroll.module(name = "Tichromecast", id = "ti.chromecast")
 public class TichromecastModule extends KrollModule {
 
-	// Standard Debugging variables
-	private static final String LCAT = "TichromecastModule";
-	
-	private MediaRouter mMediaRouter;
-	private MediaRouteSelector mMediaRouteSelector;
-	// private MediaRouter.Callback mMediaRouterCallback;
-	private CastDevice mSelectedDevice;
-	private KrollFunction krollRouteCallback;
-	private KrollFunction krollAppCallback;
-		private static final int MSG_FIRST_ID = KrollModule.MSG_LAST_ID + 1;
-	private static final int MSG_MEDIAROUTER_START = MSG_FIRST_ID + 100;
-	protected static final int MSG_LAST_ID = MSG_FIRST_ID + 999;
-
 	public TichromecastModule() {
 		super();
 	}
 
-	// http://stackoverflow.com/questions/17842845/how-do-i-discover-a-chromecast-device-using-android
 	@Kroll.onAppCreate
 	public static void onAppCreate(TiApplication app) {
 	}
 
-	/**
-	 * message handler
-	 * 
-	 * @param message
-	 */
-	@Override
-	public boolean handleMessage(Message msg) {
-		switch (msg.what) {
-		case MSG_MEDIAROUTER_START: {
-			Context context = TiApplication.getInstance()
-					.getApplicationContext();
-			mMediaRouter = MediaRouter.getInstance(context);
-			return true;
-		}
-		default: {
-			return super.handleMessage(msg);
-		}
-		}
-	}
-
-	@Kroll.method()
-	public MediaRouteSelectorProxy createDeviceManager(String AppID) {
-		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
-		// getting appid from cromecast receiver:
-		String mAppID = (AppID.equals("DEFAULT_MEDIA_RECEIVER")) ? mAppID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID
-				: AppID;
-		Log.d(LCAT, "AppId=" + mAppID);
-		// Configure Cast device discovery
-		try {
-			MediaRouteSelector mMediaRouteSelector = new MediaRouteSelector.Builder()
-					.addControlCategory(
-							CastMediaControlIntent.categoryForCast(mAppID))
-					.build();
-		
-		} catch (Exception e) {
-			Log.e(LCAT, "exception: " + e.getMessage());
-			return null;
-		}
-		
-	}
 }
-
-// Vorbild:
-// https://github.com/googlecast/CastHelloText-android/blob/master/src/com/example/casthelloworld/MainActivity.java
