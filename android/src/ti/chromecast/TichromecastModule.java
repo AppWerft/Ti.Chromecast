@@ -10,18 +10,16 @@ package ti.chromecast;
 
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
-import org.appcelerator.titanium.TiApplication;
-
+import android.app.Activity;
 
 @Kroll.module(name = "Tichromecast", id = "ti.chromecast")
 public class TichromecastModule extends KrollModule {
-
 	public TichromecastModule() {
 		super();
 	}
 
-	@Kroll.onAppCreate
-	public static void onAppCreate(TiApplication app) {
+	@Override
+	public void onStart(Activity activity) {
+		super.onStart(activity);
 	}
-
 }
