@@ -8,6 +8,7 @@
  */
 package ti.chromecast;
 
+import org.appcelerator.kroll.KrollFunction;
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.KrollProxy;
 
@@ -15,14 +16,10 @@ import android.content.Context;
 import android.os.Message;
 import android.support.v7.media.MediaRouteSelector;
 import android.support.v7.media.MediaRouter;
-import com.google.android.gms.cast.CastDevice;
 import com.google.android.gms.cast.CastMediaControlIntent;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.common.Log;
 import org.appcelerator.titanium.TiApplication;
-import android.support.v7.media.MediaRouteSelector;
-import com.google.android.gms.cast.CastMediaControlIntent;
-import ti.chromecast.TichromecastModule;
 
 @Kroll.proxy(creatableInModule = MediaRouteSelectorProxy.class)
 public class MediaRouteSelectorProxy extends KrollProxy {
@@ -31,8 +28,6 @@ public class MediaRouteSelectorProxy extends KrollProxy {
 
 	private MediaRouter mMediaRouter;
 	private MediaRouteSelector mMediaRouteSelector;
-	// private MediaRouter.Callback mMediaRouterCallback;
-
 	private static final int MSG_FIRST_ID = KrollModule.MSG_LAST_ID + 1;
 	private static final int MSG_MEDIAROUTER_START = MSG_FIRST_ID + 100;
 	protected static final int MSG_LAST_ID = MSG_FIRST_ID + 999;
