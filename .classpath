@@ -15,7 +15,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/lib/google-play-services.jar"/>
-	<classpathentry kind="lib" path="/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/lib/google-castcompanionlibrary.jar"/>
-	<classpathentry kind="lib" path="/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/lib/castcompanion.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
