@@ -45,23 +45,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 
-
-import com.google.android.gms.cast.ApplicationMetadata;
-import com.google.android.gms.cast.Cast;
-import com.google.android.gms.cast.Cast.ApplicationConnectionResult;
-import com.google.android.gms.cast.CastDevice;
-import com.google.android.gms.cast.CastMediaControlIntent;
-import com.google.android.gms.cast.CastStatusCodes;
-import com.google.android.gms.cast.LaunchOptions;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-
-import static com.google.android.libraries.cast.companionlibrary.utils.LogUtils.LOGD; 
-
+import android.support.v7.app.MediaRouteDialogFactory;
 
 @Kroll.module(name = "Tichromecast", id = "ti.chromecast")
 public class TichromecastModule extends KrollModule {
@@ -70,11 +54,11 @@ public class TichromecastModule extends KrollModule {
 	private static final String LCAT = "TichromecastModule";
 	private MediaRouter mMediaRouter;
 	private MediaRouteSelector mMediaRouteSelector;
-//	private MediaRouter.Callback mMediaRouterCallback;
+	// private MediaRouter.Callback mMediaRouterCallback;
 	private CastDevice mSelectedDevice;
 	private KrollFunction krollRouteCallback;
 	private KrollFunction krollAppCallback;
-	protected CastMediaRouterCallback mMediaRouterCallback;
+
 
 	private static final int MSG_FIRST_ID = KrollModule.MSG_LAST_ID + 1;
 	private static final int MSG_MEDIAROUTER_START = MSG_FIRST_ID + 100;
@@ -110,134 +94,34 @@ public class TichromecastModule extends KrollModule {
 	}
 
 	@Kroll.method()
-	public boolean startMediaRouter(String AppID,
-			@Kroll.argument(optional = true) KrollFunction routeCallback) {
-		krollRouteCallback = routeCallback;
+	public MediaRouteSelector createDeviceManager(String AppID) {
 		Log.d(LCAT,
 				"========================\nstartMediaRouter called with AppID="
 						+ AppID);
-
 		// in force run main thread:
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
-
 		// getting appid from cromecast receiver:
 		String mAppID = (AppID.equals("DEFAULT_MEDIA_RECEIVER")) ? mAppID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID
 				: AppID;
 		Log.d(LCAT, "AppId=" + mAppID);
-
 		// Configure Cast device discovery
 		try {
-			mMediaRouteSelector = new MediaRouteSelector.Builder()
+			MediaRouteSelector mMediaRouteSelector = new MediaRouteSelector.Builder()
 					.addControlCategory(
 							CastMediaControlIntent.categoryForCast(mAppID))
 					.build();
 			Log.d(LCAT, "MediaRouteSelector created");
 		} catch (Exception e) {
 			Log.e(LCAT, "exception: " + e.getMessage());
-			return false;
+			return null;
 		}
-		mMediaRouterCallback = new CastMediaRouterCallback(TiApplication.getInstance().getApplicationContext());
-		Log.e(LCAT, "new CastMediaRouterCallback ");
-        mMediaRouter.addCallback(mMediaRouteSelector, mMediaRouterCallback,
-                MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY);
-		
 		// later will come:
 		// java.lang.NoSuchFieldError: No static field
 		// mr_user_route_category_name of type I in class
-		return true;
-
+		return MediaRouteSelector;
 	}
 
-	/**
-	 * Callback for MediaRouter events
-	 */
-	public class CastMediaRouterCallback extends MediaRouter.Callback { 
-	    private static final String TAG = LogUtils.makeLogTag(CastMediaRouterCallback.class); 
-	    private final BaseCastManager mCastManager; 
-	    private boolean mRouteAvailable = false; 
-	 
-	    public CastMediaRouterCallback(BaseCastManager castManager) { 
-	        mCastManager = castManager; 
-	    } 
-	 
-	    @Override 
-	    public void onRouteSelected(MediaRouter router, RouteInfo info) { 
-	        LOGD(TAG, "onRouteSelected: info=" + info); 
-	        if (mCastManager.getReconnectionStatus() 
-	                == BaseCastManager.RECONNECTION_STATUS_FINALIZED) { 
-	            mCastManager.setReconnectionStatus(BaseCastManager.RECONNECTION_STATUS_INACTIVE); 
-	            mCastManager.cancelReconnectionTask(); 
-	            return; 
-	        } 
-	        mCastManager.getPreferenceAccessor().saveStringToPreference( 
-	                BaseCastManager.PREFS_KEY_ROUTE_ID, info.getId()); 
-	        CastDevice device = CastDevice.getFromBundle(info.getExtras()); 
-	        mCastManager.onDeviceSelected(device); 
-	        LOGD(TAG, "onRouteSelected: mSelectedDevice=" + device.getFriendlyName()); 
-	    } 
-	 
-	    @Override 
-	    public void onRouteUnselected(MediaRouter router, RouteInfo route) { 
-	        LOGD(TAG, "onRouteUnselected: route=" + route); 
-	        mCastManager.onDeviceSelected(null); 
-	    } 
-	 
-	    @Override 
-	    public void onRouteAdded(MediaRouter router, RouteInfo route) { 
-	        if (!router.getDefaultRoute().equals(route)) { 
-	            notifyRouteAvailabilityChangedIfNeeded(router); 
-	            mCastManager.onCastDeviceDetected(route); 
-	        } 
-	        if (mCastManager.getReconnectionStatus() 
-	                == BaseCastManager.RECONNECTION_STATUS_STARTED) { 
-	            String routeId = mCastManager.getPreferenceAccessor().getStringFromPreference( 
-	                    BaseCastManager.PREFS_KEY_ROUTE_ID); 
-	            if (route.getId().equals(routeId)) { 
-	                // we found the route, so lets go with that 
-	                LOGD(TAG, "onRouteAdded: Attempting to recover a session with info=" + route); 
-	                mCastManager.setReconnectionStatus(BaseCastManager.RECONNECTION_STATUS_IN_PROGRESS); 
-	 
-	                CastDevice device = CastDevice.getFromBundle(route.getExtras()); 
-	                LOGD(TAG, "onRouteAdded: Attempting to recover a session with device: " 
-	                        + device.getFriendlyName()); 
-	                mCastManager.onDeviceSelected(device); 
-	            } 
-	        } 
-	    } 
-	 
-	    @Override 
-	    public void onRouteRemoved(MediaRouter router, RouteInfo route) { 
-	        notifyRouteAvailabilityChangedIfNeeded(router); 
-	    } 
-	 
-	    @Override 
-	    public void onRouteChanged(MediaRouter router, RouteInfo route) { 
-	        notifyRouteAvailabilityChangedIfNeeded(router); 
-	    } 
-	 
-	    private void notifyRouteAvailabilityChangedIfNeeded(MediaRouter router) { 
-	        boolean routeAvailable = isRouteAvailable(router); 
-	        if (routeAvailable != mRouteAvailable) { 
-	            // availability of routes have changed 
-	            mRouteAvailable = routeAvailable; 
-	            mCastManager.onCastAvailabilityChanged(mRouteAvailable); 
-	        } 
-	    } 
-	 
-	    private boolean isRouteAvailable(MediaRouter router) { 
-	        return router.isRouteAvailable(mCastManager.getMediaRouteSelector(), 
-	            MediaRouter.AVAILABILITY_FLAG_IGNORE_DEFAULT_ROUTE 
-	                | MediaRouter.AVAILABILITY_FLAG_REQUIRE_MATCH); 
-	    } 
-	 
-	    /**
-	     * Returns {@code true} if and only if there is at least one route matching the 
-	     * {@link BaseCastManager#getMediaRouteSelector()}. 
-	     */ 
-	    public boolean isRouteAvailable() { 
-	        return mRouteAvailable; 
-	    } 
-	}
+	
 
 }
 
