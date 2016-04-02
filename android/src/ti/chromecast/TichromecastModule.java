@@ -25,6 +25,10 @@ import com.google.android.gms.cast.CastDevice;
 import com.google.android.gms.cast.CastMediaControlIntent;
 //import android.media.MediaRouter;
 
+
+
+
+
 @Kroll.module(name = "Tichromecast", id = "ti.chromecast")
 public class TichromecastModule extends KrollModule {
 
@@ -83,7 +87,7 @@ public class TichromecastModule extends KrollModule {
 					.addControlCategory(
 							CastMediaControlIntent.categoryForCast(mAppID))
 					.build();
-			return MediaRouteSelector;
+		
 		} catch (Exception e) {
 			Log.e(LCAT, "exception: " + e.getMessage());
 			return null;

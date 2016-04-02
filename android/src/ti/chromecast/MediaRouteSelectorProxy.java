@@ -11,7 +11,7 @@ package ti.chromecast;
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 
-@Kroll.proxy(creatableInModule = TiChromecast.class)
-public class TiChromecastProxy extends KrollProxy {
+@Kroll.proxy(creatableInModule =  MediaRouteSelectorProxy.class)
+public class MediaRouteSelectorProxy extends KrollProxy {
 
 }
