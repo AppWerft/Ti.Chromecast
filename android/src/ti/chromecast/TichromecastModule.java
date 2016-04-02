@@ -75,7 +75,7 @@ public class TichromecastModule extends KrollModule {
 	}
 
 	@Kroll.method()
-	public MediaRouteSelector createDeviceManager(String AppID) {
+	public MediaRouteSelectorProxy createDeviceManager(String AppID) {
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
 		// getting appid from cromecast receiver:
 		String mAppID = (AppID.equals("DEFAULT_MEDIA_RECEIVER")) ? mAppID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID
