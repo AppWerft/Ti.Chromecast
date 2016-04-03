@@ -6,20 +6,18 @@ The project is still under construction. Thanks for help to Андрей Тка�
 
 Usage:
 ------
-
 ~~~
 // reference the module
 var Chromecast = require('ti.chromecast');
 
 // create an instance of the device manager
-var deviceManager = Chromecast.createDeviceManager({
-    app: "APP_ID" // for custome player required or "DEFAULT_MEDIA_RECEIVER"
-});
+var deviceManager = Chromecast.createDeviceManager(app: "APP_ID"); // for custome player required or "DEFAULT_MEDIA_RECEIVER"
+
 
 // listen for new devices
 deviceManager.addEventListener('deviceOnline', function (e) {
     var device = e.device;
-
+};
 //connect to device
 if (!deviceManager.isConnected()) {
     device.connect(function () {
