@@ -20,8 +20,18 @@ import com.google.android.gms.cast.CastMediaControlIntent;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.common.Log;
 import org.appcelerator.titanium.TiApplication;
+import org.appcelerator.kroll.KrollDict;
+import org.appcelerator.kroll.annotations.Kroll;
+import org.appcelerator.titanium.TiBlob;
+import org.appcelerator.titanium.TiFileProxy;
+import org.appcelerator.kroll.common.Log;
+import org.appcelerator.titanium.io.TiBaseFile;
+import org.appcelerator.titanium.io.TiFileFactory;
+import org.appcelerator.titanium.util.TiConvert;
+import ti.chromecast.TichromecastModule;
 
-@Kroll.proxy(creatableInModule = MediaRouteSelectorProxy.class)
+
+@Kroll.proxy(creatableInModule = TichromecastModule.class)
 public class MediaRouteSelectorProxy extends KrollProxy {
 	// Standard Debugging variables
 	private static final String LCAT = "TichromecastModule";
@@ -54,7 +64,6 @@ public class MediaRouteSelectorProxy extends KrollProxy {
 
 	public MediaRouteSelectorProxy(String AppID) {
 		super();
-
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
 		// getting appid from cromecast receiver:
 		String mAppID = (AppID.equals("DEFAULT_MEDIA_RECEIVER")) ? mAppID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID
