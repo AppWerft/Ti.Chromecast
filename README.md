@@ -1,7 +1,7 @@
 Ti.Chromecast
 =============
 This is a Titanium Mobile for Chromecast and still under work. For iOS version please look here: https://github.com/ajwhite/titanium-chromecast
-The project is still under construction. 
+The project is still under construction. Thanks for help to Андрей Ткаченко and Manumaticx.
 
 
 Usage:
