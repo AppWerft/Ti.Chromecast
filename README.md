@@ -11,7 +11,7 @@ Usage:
 var Chromecast = require('ti.chromecast');
 
 // create an instance of the device manager
-var deviceManager = Chromecast.createDeviceManager(app: "APP_ID"); // for custome player required or "DEFAULT_MEDIA_RECEIVER"
+var deviceManager = Chromecast.createDeviceManager("APP_ID"); // for custome player required or "DEFAULT_MEDIA_RECEIVER"
 
 
 // listen for new devices
