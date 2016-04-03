@@ -25,6 +25,7 @@ function moduleBootstrap(moduleBinding) {
 	}
 
 		addInvocationAPI(module, "Tichromecast", "Tichromecast", "createMediaRouteSelector");
+	addInvocationAPI(module, "Tichromecast", "Tichromecast", "createDeviceManager");
 
 			if (!("__propertiesDefined__" in module)) {		
 		Object.defineProperties(module, {
@@ -35,10 +36,20 @@ function moduleBootstrap(moduleBinding) {
 				},
 				configurable: true
 			},
+			"DeviceManager": {
+				get: function() {
+					var DeviceManager = lazyGet(this, "ti.chromecast.DeviceManagerProxy", "DeviceManager", "DeviceManager");
+					return DeviceManager;
+				},
+				configurable: true
+			},
 		
 		});
 		module.constructor.prototype.createMediaRouteSelector = function() {
 			return new module.MediaRouteSelector(arguments);
+		}
+		module.constructor.prototype.createDeviceManager = function() {
+			return new module.DeviceManager(arguments);
 		}
 		}
 		module.__propertiesDefined__ = true;

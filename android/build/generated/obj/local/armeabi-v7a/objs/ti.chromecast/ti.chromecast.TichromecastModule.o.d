@@ -60,6 +60,7 @@
  /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/TypeConverter.h \
  /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/V8Util.h \
  jni/ti.chromecast.MediaRouteSelectorProxy.h \
+ jni/ti.chromecast.DeviceManagerProxy.h \
  /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/org.appcelerator.kroll.KrollModule.h \
  /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/Proxy.h
 
@@ -182,6 +183,8 @@ jni/ti.chromecast.TichromecastModule.h:
 /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/V8Util.h:
 
 jni/ti.chromecast.MediaRouteSelectorProxy.h:
+
+jni/ti.chromecast.DeviceManagerProxy.h:
 
 /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/org.appcelerator.kroll.KrollModule.h:
 

@@ -21,6 +21,7 @@
 
 
 #include "ti.chromecast.MediaRouteSelectorProxy.h"
+#include "ti.chromecast.DeviceManagerProxy.h"
 
 #include "org.appcelerator.kroll.KrollModule.h"
 
