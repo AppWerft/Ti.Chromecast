@@ -2,13 +2,15 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 0.0.4
+version: 0.0.5
 apiversion: 2
 architectures: armeabi armeabi-v7a x86
-respackage: com.google.android.libraries.cast.companionlibrary 
+#respackage: com.google.android.libraries.cast.companionlibrary 
+respackage:  android.support.v7.mediarouter
+
 description: Module for realizing of Chromecast Communication
 author: APPWERFT
-license: Specify your license
+license: MIT
 copyright: Copyright (c) 2016 by 
 
 # these should not be edited

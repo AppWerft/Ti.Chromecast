@@ -5,9 +5,6 @@
 	<classpathentry kind="src" path="android/build/.apt_generated"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="/Users/fuerst/Library/android-sdk-macosx/platforms/android-23/android.jar"/>
-
-	<classpathentry exported="true" kind="lib" path="/Users/fuerst/Library/android-sdk-macosx/add-ons/addon-google_apis-google-23/libs/maps.jar"/>
-
 	<classpathentry exported="true" kind="lib" path="/Library/Application Support/Titanium/mobilesdk/osx/mobilesdk/osx/5.2.1.GA/android/titanium.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Library/Application Support/Titanium/mobilesdk/osx/mobilesdk/osx/5.2.1.GA/android/kroll-common.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Library/Application Support/Titanium/mobilesdk/osx/mobilesdk/osx/5.2.1.GA/android/kroll-apt.jar"/>
@@ -16,9 +13,6 @@
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-<classpathentry kind="lib" path="/lib/google-play-services-base.jar"/>
-<classpathentry kind="lib" path="/lib/google-play-services-identity.jar"/>
-<classpathentry kind="lib" path="/lib/google-play-services-plus.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/lib/google-play-services.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
