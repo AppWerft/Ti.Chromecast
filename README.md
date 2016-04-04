@@ -10,22 +10,11 @@ Usage:
 // reference the module
 var Chromecast = require('ti.chromecast');
 
-// create an instance of the device manager
-var deviceManager = Chromecast.createDeviceManager("APP_ID"); // for custome player required or "DEFAULT_MEDIA_RECEIVER"
-
-
-// listen for new devices
-deviceManager.addEventListener('deviceOnline', function (e) {
+var deviceManager = require('ti.chromecast').createDeviceManager();
+deviceManager.getMediaRouteSelector('DEFAULT_MEDIA_RECEIVER');// for custome player required or "DEFAULT_MEDIA_RECEIVER"
+deviceManager.addEventListener('deviceOnline', function(e) {
     var device = e.device;
-};
-//connect to device
-if (!deviceManager.isConnected()) {
-    device.connect(function () {
-        device.startApplication(function () {
-            device.sendJsonMessage({foo: 'bar'});
-        });
-    });
-}
+});
 
 
 
