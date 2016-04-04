@@ -10,7 +10,7 @@ package ti.chromecast;
 
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
-import android.app.Activity;
+//import android.app.Activity;
 
 @Kroll.module(name = "Tichromecast", id = "ti.chromecast")
 public class TichromecastModule extends KrollModule {
@@ -18,8 +18,8 @@ public class TichromecastModule extends KrollModule {
 		super();
 	}
 
-	@Override
-	public void onStart(Activity activity) {
-		super.onStart(activity);
-	}
+	//@Override
+	//public void onStart(Activity activity) {
+	//	super.onStart(activity);
+//	}
 }

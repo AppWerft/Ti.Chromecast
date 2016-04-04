@@ -171,7 +171,7 @@
  /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/../include/assert.h \
  /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/EventEmitter.h \
  /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/NativeObject.h \
- jni/ti.chromecast.MediaRouteSelectorProxy.h
+ jni/ti.chromecast.DeviceManagerProxy.h
 
 /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/jni.h:
 
@@ -517,4 +517,4 @@ jni/ti.chromecast.TichromecastModule.h:
 
 /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/NativeObject.h:
 
-jni/ti.chromecast.MediaRouteSelectorProxy.h:
+jni/ti.chromecast.DeviceManagerProxy.h:

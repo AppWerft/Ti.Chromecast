@@ -25,7 +25,7 @@ import ti.chromecast.TichromecastModule;
 @Kroll.proxy(creatableInModule = TichromecastModule.class)
 public class DeviceManagerProxy extends KrollProxy {
 	// Standard Debugging variables
-	private static final String LCAT = "TichromecastModule";
+	private static final String LCAT = "TCC";
 
 	private MediaRouter mMediaRouter;
 	private MediaRouteSelector mMediaRouteSelector;
@@ -33,11 +33,6 @@ public class DeviceManagerProxy extends KrollProxy {
 	private static final int MSG_MEDIAROUTER_START = MSG_FIRST_ID + 100;
 	protected static final int MSG_LAST_ID = MSG_FIRST_ID + 999;
 
-	/**
-	 * message handler
-	 * 
-	 * @param message
-	 */
 	@Override
 	public boolean handleMessage(Message msg) {
 		switch (msg.what) {
@@ -55,23 +50,23 @@ public class DeviceManagerProxy extends KrollProxy {
 
 	public DeviceManagerProxy() {
 		super();
-		
+		Log.d(LCAT, "init DeviceManagerProxy");
 	}
-	
+
 	@Kroll.method
 	public MediaRouteSelector getMediaRouteSelector(String AppID) {
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
 		// getting appid from cromecast receiver:
 		String mAppID = (AppID.equals("DEFAULT_MEDIA_RECEIVER")) ? mAppID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID
 				: AppID;
-		Log.d(LCAT, "AppId=" + mAppID);
+		Log.d(LCAT, "AppId========" + mAppID);
 		// Configure Cast device discovery
 		try {
 			MediaRouteSelector mMediaRouteSelector = new MediaRouteSelector.Builder()
 					.addControlCategory(
 							CastMediaControlIntent.categoryForCast(mAppID))
 					.build();
-			
+
 		} catch (Exception e) {
 			Log.e(LCAT, "exception: " + e.getMessage());
 

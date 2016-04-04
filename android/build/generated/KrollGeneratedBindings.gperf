@@ -7,7 +7,6 @@
 #include <KrollBindings.h>
 
 #include "ti.chromecast.TichromecastModule.h"
-#include "ti.chromecast.MediaRouteSelectorProxy.h"
 #include "ti.chromecast.DeviceManagerProxy.h"
 
 
@@ -15,6 +14,5 @@
 struct titanium::bindings::BindEntry;
 %%
 ti.chromecast.TichromecastModule, ::ti::chromecast::TichromecastModule::bindProxy, ::ti::chromecast::TichromecastModule::dispose
-ti.chromecast.MediaRouteSelectorProxy, ::ti::chromecast::tichromecast::MediaRouteSelectorProxy::bindProxy, ::ti::chromecast::tichromecast::MediaRouteSelectorProxy::dispose
 ti.chromecast.DeviceManagerProxy, ::ti::chromecast::tichromecast::DeviceManagerProxy::bindProxy, ::ti::chromecast::tichromecast::DeviceManagerProxy::dispose
 %%
