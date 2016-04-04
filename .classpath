@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry exported="true" kind="lib" path="/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/lib/android-support-v7-mediarouter.jar"/>
-	<classpathentry excluding="com/" kind="src" path="android/src"/>
-	<classpathentry kind="src" path="android/build/.apt_generated"/>
+	
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="/Users/fuerst/Library/android-sdk-macosx/platforms/android-23/android.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Library/Application Support/Titanium/mobilesdk/osx/mobilesdk/osx/5.2.1.GA/android/titanium.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Library/Application Support/Titanium/mobilesdk/osx/mobilesdk/osx/5.2.1.GA/android/kroll-common.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Library/Application Support/Titanium/mobilesdk/osx/mobilesdk/osx/5.2.1.GA/android/kroll-apt.jar"/>
-	<classpathentry kind="src" path=".apt_generated">
+    <classpathentry exported="true" kind="lib" path="/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/lib/google-play-services.jar"/>
+<classpathentry excluding="com/" kind="src" path="android/src"/>
+    <classpathentry kind="src" path="android/build/.apt_generated"/>
+    <classpathentry kind="src" path=".apt_generated">
 		<attributes>
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/lib/google-play-services.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
