@@ -18,8 +18,8 @@
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stl/config/_native_headers.h \
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stl/_epilog.h \
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
- /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/v8.h \
- /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/v8stdint.h \
+ /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/v8.h \
+ /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/v8stdint.h \
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stddef.h \
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stdio.h \
  /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/../include/stdio.h \
@@ -35,7 +35,7 @@
  /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/linux/types.h \
  /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/machine/kernel.h \
  /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/sys/sysmacros.h \
- /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/AndroidUtil.h \
+ /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/AndroidUtil.h \
  /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/android/log.h \
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stdlib.h \
  /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/../include/stdlib.h \
@@ -45,7 +45,7 @@
  /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/alloca.h \
  /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/strings.h \
  /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/memory.h \
- /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/KrollBindings.h \
+ /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/KrollBindings.h \
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/map \
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stl/_prolog.h \
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stl/debug/_debug.h \
@@ -162,15 +162,15 @@
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stl/_vector.h \
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stl/_vector.c \
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stl/_bvector.h \
- /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/V8Util.h \
+ /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/V8Util.h \
  jni/../BootstrapJS.cpp jni/../KrollGeneratedBindings.cpp \
  jni/ti.chromecast.TichromecastModule.h \
- /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/Proxy.h \
- /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/JavaObject.h \
+ /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/Proxy.h \
+ /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/JavaObject.h \
  /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/assert.h \
  /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/../include/assert.h \
- /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/EventEmitter.h \
- /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/NativeObject.h \
+ /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/EventEmitter.h \
+ /Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/NativeObject.h \
  jni/ti.chromecast.DeviceManagerProxy.h
 
 /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/jni.h:
@@ -209,9 +209,9 @@
 
 /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h:
 
-/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/v8.h:
+/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/v8.h:
 
-/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/v8stdint.h:
+/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/v8stdint.h:
 
 /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stddef.h:
 
@@ -243,7 +243,7 @@
 
 /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/sys/sysmacros.h:
 
-/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/AndroidUtil.h:
+/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/AndroidUtil.h:
 
 /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/android/log.h:
 
@@ -263,7 +263,7 @@
 
 /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/memory.h:
 
-/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/KrollBindings.h:
+/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/KrollBindings.h:
 
 /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/map:
 
@@ -497,7 +497,7 @@
 
 /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/stl/_bvector.h:
 
-/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/V8Util.h:
+/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/V8Util.h:
 
 jni/../BootstrapJS.cpp:
 
@@ -505,16 +505,16 @@ jni/../KrollGeneratedBindings.cpp:
 
 jni/ti.chromecast.TichromecastModule.h:
 
-/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/Proxy.h:
+/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/Proxy.h:
 
-/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/JavaObject.h:
+/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/JavaObject.h:
 
 /Users/fuerst/Library/android-ndk-macosx/sources/cxx-stl/stlport/stlport/assert.h:
 
 /Users/fuerst/Library/android-ndk-macosx/platforms/android-3/arch-arm/usr/include/../include/assert.h:
 
-/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/EventEmitter.h:
+/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/EventEmitter.h:
 
-/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.0.GENPERM/android/native/include/NativeObject.h:
+/Library/Application\ Support/Titanium/mobilesdk/osx/5.2.1/android/native/include/NativeObject.h:
 
 jni/ti.chromecast.DeviceManagerProxy.h:
