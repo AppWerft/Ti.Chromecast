@@ -16,7 +16,6 @@ import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.common.Log;
 import org.appcelerator.titanium.TiApplication;
-
 import android.content.Context;
 import android.os.Message;
 import android.support.v7.media.MediaControlIntent;
@@ -60,7 +59,6 @@ public class DeviceManagerProxy extends KrollProxy {
 
 	@Kroll.method
 	public MediaRouteSelector getMediaRouteSelector(String AppID) {
-
 		MediaRouteSelector selectorBuilder = new MediaRouteSelector.Builder()
 				.addControlCategory(MediaControlIntent.CATEGORY_LIVE_VIDEO)
 				.addControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK)
@@ -80,16 +78,16 @@ public class DeviceManagerProxy extends KrollProxy {
 				: AppID;
 		Log.d(LCAT, "AppId========" + mAppID);
 		// Configure Cast device discovery
+		MediaRouteSelector mediaRouteSelector = null;
 		try {
-			MediaRouteSelector mMediaRouteSelector = new MediaRouteSelector.Builder()
+			mediaRouteSelector = new MediaRouteSelector.Builder()
 					.addControlCategory(
 							CastMediaControlIntent.categoryForCast(mAppID))
 					.build();
-
 		} catch (Exception e) {
 			Log.e(LCAT, "exception: " + e.getMessage());
 
 		}
-		return mMediaRouteSelector;
+		return mediaRouteSelector;
 	}
 }
