@@ -1,4 +1,4 @@
-<project name="tichromecast" default="dist">
+<project name="chromecast" default="dist">
 	<description>
 		Ant build script for Titanium Android module tichromecast
 	</description>

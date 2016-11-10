@@ -12,7 +12,7 @@ license: MIT
 copyright: Copyright (c) 2016 by 
 
 # these should not be edited
-name: tichromecast
+name: chromecast
 moduleid: ti.chromecast
 guid: 6f36bb13-1b2a-4189-8893-5170c834032c
 platform: android

@@ -9,13 +9,11 @@
 package ti.chromecast;
 
 import org.appcelerator.kroll.KrollModule;
-
-import android.support.v7.media.MediaRouteSelector;
-
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.common.Log;
 import org.appcelerator.titanium.TiApplication;
+
 import android.content.Context;
 import android.os.Message;
 import android.support.v7.media.MediaControlIntent;
@@ -25,14 +23,14 @@ import android.support.v7.media.MediaRouter.Callback;
 
 import com.google.android.gms.cast.CastMediaControlIntent;
 
-@Kroll.proxy(creatableInModule = TichromecastModule.class)
+@Kroll.proxy(creatableInModule = ChromecastModule.class)
 public class DeviceManagerProxy extends KrollProxy {
 	// Standard Debugging variables
 	private static final String LCAT = "TCC";
 
 	@SuppressWarnings("unused")
 	private MediaRouter mediaRouter;
-	private MediaRouteSelector mMediaRouteSelector;
+	private MediaRouteSelector mediaRouteSelector;
 	private static final int MSG_FIRST_ID = KrollModule.MSG_LAST_ID + 1;
 	private static final int MSG_MEDIAROUTER_START = MSG_FIRST_ID + 100;
 	protected static final int MSG_LAST_ID = MSG_FIRST_ID + 999;
@@ -70,7 +68,7 @@ public class DeviceManagerProxy extends KrollProxy {
 		Callback callback = null;
 		mediaRouter.addCallback(selector, callback,
 				MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY);
-
+		// forces to Main thread:
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
 
 		// getting appid from cromecast receiver:
@@ -78,7 +76,7 @@ public class DeviceManagerProxy extends KrollProxy {
 				: AppID;
 		Log.d(LCAT, "AppId========" + mAppID);
 		// Configure Cast device discovery
-		MediaRouteSelector mediaRouteSelector = null;
+
 		try {
 			mediaRouteSelector = new MediaRouteSelector.Builder()
 					.addControlCategory(
