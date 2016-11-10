@@ -9,7 +9,9 @@
 package ti.chromecast;
 
 import org.appcelerator.kroll.KrollModule;
+
 import android.support.v7.media.MediaRouteSelector;
+
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.common.Log;
@@ -20,6 +22,7 @@ import android.os.Message;
 import android.support.v7.media.MediaControlIntent;
 import android.support.v7.media.MediaRouteSelector;
 import android.support.v7.media.MediaRouter;
+import android.support.v7.media.MediaRouter.Callback;
 
 import com.google.android.gms.cast.CastMediaControlIntent;
 
@@ -63,12 +66,12 @@ public class DeviceManagerProxy extends KrollProxy {
 				.addControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK)
 				.build();
 		/**/
-		MediaRouter router = MediaRouter.getInstance(TiApplication
+		MediaRouter mediaRouter = MediaRouter.getInstance(TiApplication
 				.getInstance().getApplicationContext());
-		router.addCallback(MediaRouteSelector selector, Callback callback,
+		MediaRouteSelector selector = null;
+		Callback callback = null;
+		mediaRouter.addCallback(selector, callback,
 				MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY);
-
-		/**/
 
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
 
