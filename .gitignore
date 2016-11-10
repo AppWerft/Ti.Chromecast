@@ -1,3 +1,5 @@
 build
 /android/dist/
 .DS_store 
+/android/build/
+.gitignore

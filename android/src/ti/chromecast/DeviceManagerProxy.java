@@ -9,25 +9,27 @@
 package ti.chromecast;
 
 import org.appcelerator.kroll.KrollModule;
-import org.appcelerator.kroll.KrollProxy;
-
-import android.content.Context;
-import android.os.Message;
 import android.support.v7.media.MediaRouteSelector;
-import android.support.v7.media.MediaRouter;
-import com.google.android.gms.cast.CastMediaControlIntent;
+import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.common.Log;
 import org.appcelerator.titanium.TiApplication;
 
-import ti.chromecast.TichromecastModule;
+import android.content.Context;
+import android.os.Message;
+import android.support.v7.media.MediaControlIntent;
+import android.support.v7.media.MediaRouteSelector;
+import android.support.v7.media.MediaRouter;
+
+import com.google.android.gms.cast.CastMediaControlIntent;
 
 @Kroll.proxy(creatableInModule = TichromecastModule.class)
 public class DeviceManagerProxy extends KrollProxy {
 	// Standard Debugging variables
 	private static final String LCAT = "TCC";
 
-	private MediaRouter mMediaRouter;
+	@SuppressWarnings("unused")
+	private MediaRouter mediaRouter;
 	private MediaRouteSelector mMediaRouteSelector;
 	private static final int MSG_FIRST_ID = KrollModule.MSG_LAST_ID + 1;
 	private static final int MSG_MEDIAROUTER_START = MSG_FIRST_ID + 100;
@@ -39,7 +41,7 @@ public class DeviceManagerProxy extends KrollProxy {
 		case MSG_MEDIAROUTER_START: {
 			Context context = TiApplication.getInstance()
 					.getApplicationContext();
-			mMediaRouter = MediaRouter.getInstance(context);
+			mediaRouter = MediaRouter.getInstance(context);
 			return true;
 		}
 		default: {
@@ -55,7 +57,21 @@ public class DeviceManagerProxy extends KrollProxy {
 
 	@Kroll.method
 	public MediaRouteSelector getMediaRouteSelector(String AppID) {
+
+		MediaRouteSelector selectorBuilder = new MediaRouteSelector.Builder()
+				.addControlCategory(MediaControlIntent.CATEGORY_LIVE_VIDEO)
+				.addControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK)
+				.build();
+		/**/
+		MediaRouter router = MediaRouter.getInstance(TiApplication
+				.getInstance().getApplicationContext());
+		router.addCallback(MediaRouteSelector selector, Callback callback,
+				MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY);
+
+		/**/
+
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
+
 		// getting appid from cromecast receiver:
 		String mAppID = (AppID.equals("DEFAULT_MEDIA_RECEIVER")) ? mAppID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID
 				: AppID;
