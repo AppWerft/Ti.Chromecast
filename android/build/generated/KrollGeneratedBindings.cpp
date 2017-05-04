@@ -1,5 +1,5 @@
 /* C++ code produced by gperf version 3.0.3 */
-/* Command-line: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/gperf -L C++ -E -t /private/var/folders/25/yvdn9h053sv3htdkzq8558k40000gn/T/fuerst/tichromecast-generated/KrollGeneratedBindings.gperf  */
+/* Command-line: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/gperf -L C++ -E -t /private/var/folders/dp/_57t8_6j247dh0h7mknf97600000gn/T/fuerst/chromecast-generated/KrollGeneratedBindings.gperf  */
 /* Computed positions: -k'15' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
@@ -29,18 +29,18 @@
 #error "gperf generated tables don't work with this execution character set. Please report a bug to <bug-gnu-gperf@gnu.org>."
 #endif
 
-#line 3 "/private/var/folders/25/yvdn9h053sv3htdkzq8558k40000gn/T/fuerst/tichromecast-generated/KrollGeneratedBindings.gperf"
+#line 3 "/private/var/folders/dp/_57t8_6j247dh0h7mknf97600000gn/T/fuerst/chromecast-generated/KrollGeneratedBindings.gperf"
 
 
 #include <string.h>
 #include <v8.h>
 #include <KrollBindings.h>
 
-#include "ti.chromecast.TichromecastModule.h"
-#include "ti.chromecast.DeviceManagerProxy.h"
+#include "ti.chromecast.MediaRouterProxy.h"
+#include "ti.chromecast.ChromecastModule.h"
 
 
-#line 14 "/private/var/folders/25/yvdn9h053sv3htdkzq8558k40000gn/T/fuerst/tichromecast-generated/KrollGeneratedBindings.gperf"
+#line 14 "/private/var/folders/dp/_57t8_6j247dh0h7mknf97600000gn/T/fuerst/chromecast-generated/KrollGeneratedBindings.gperf"
 struct titanium::bindings::BindEntry;
 /* maximum key range = 2, duplicates = 0 */
 
@@ -57,32 +57,32 @@ TichromecastBindings::hash (register const char *str, register unsigned int len)
 {
   static unsigned char asso_values[] =
     {
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34,  1, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34,  0, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34, 34, 34, 34, 34,
-      34, 34, 34, 34, 34, 34
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32,  1, 32, 32,
+      32, 32, 32, 32, 32, 32, 32,  0, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
+      32, 32, 32, 32, 32, 32
     };
   return len + asso_values[(unsigned char)str[14]];
 }
@@ -93,10 +93,10 @@ TichromecastBindings::lookupGeneratedInit (register const char *str, register un
   enum
     {
       TOTAL_KEYWORDS = 2,
-      MIN_WORD_LENGTH = 32,
-      MAX_WORD_LENGTH = 32,
-      MIN_HASH_VALUE = 32,
-      MAX_HASH_VALUE = 33
+      MIN_WORD_LENGTH = 30,
+      MAX_WORD_LENGTH = 30,
+      MIN_HASH_VALUE = 30,
+      MAX_HASH_VALUE = 31
     };
 
   static struct titanium::bindings::BindEntry wordlist[] =
@@ -104,11 +104,11 @@ TichromecastBindings::lookupGeneratedInit (register const char *str, register un
       {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
       {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
       {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
-      {""}, {""}, {""}, {""}, {""},
-#line 16 "/private/var/folders/25/yvdn9h053sv3htdkzq8558k40000gn/T/fuerst/tichromecast-generated/KrollGeneratedBindings.gperf"
-      {"ti.chromecast.TichromecastModule", ::ti::chromecast::TichromecastModule::bindProxy, ::ti::chromecast::TichromecastModule::dispose},
-#line 17 "/private/var/folders/25/yvdn9h053sv3htdkzq8558k40000gn/T/fuerst/tichromecast-generated/KrollGeneratedBindings.gperf"
-      {"ti.chromecast.DeviceManagerProxy", ::ti::chromecast::tichromecast::DeviceManagerProxy::bindProxy, ::ti::chromecast::tichromecast::DeviceManagerProxy::dispose}
+      {""}, {""}, {""},
+#line 16 "/private/var/folders/dp/_57t8_6j247dh0h7mknf97600000gn/T/fuerst/chromecast-generated/KrollGeneratedBindings.gperf"
+      {"ti.chromecast.MediaRouterProxy", ::ti::chromecast::tichromecast::MediaRouterProxy::bindProxy, ::ti::chromecast::tichromecast::MediaRouterProxy::dispose},
+#line 17 "/private/var/folders/dp/_57t8_6j247dh0h7mknf97600000gn/T/fuerst/chromecast-generated/KrollGeneratedBindings.gperf"
+      {"ti.chromecast.ChromecastModule", ::ti::chromecast::ChromecastModule::bindProxy, ::ti::chromecast::ChromecastModule::dispose}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
@@ -125,5 +125,5 @@ TichromecastBindings::lookupGeneratedInit (register const char *str, register un
     }
   return 0;
 }
-#line 18 "/private/var/folders/25/yvdn9h053sv3htdkzq8558k40000gn/T/fuerst/tichromecast-generated/KrollGeneratedBindings.gperf"
+#line 18 "/private/var/folders/dp/_57t8_6j247dh0h7mknf97600000gn/T/fuerst/chromecast-generated/KrollGeneratedBindings.gperf"
 

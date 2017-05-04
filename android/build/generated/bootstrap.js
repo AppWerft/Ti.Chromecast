@@ -16,7 +16,7 @@ function moduleBootstrap(moduleBinding) {
 			name, namespace, moduleBinding.getBinding);
 	}
 
-	var module = moduleBinding.getBinding("ti.chromecast.TichromecastModule")["Tichromecast"];
+	var module = moduleBinding.getBinding("ti.chromecast.ChromecastModule")["Tichromecast"];
 	var invocationAPIs = module.invocationAPIs = [];
 	module.apiName = "Tichromecast";
 
@@ -24,21 +24,21 @@ function moduleBootstrap(moduleBinding) {
 		invocationAPIs.push({ namespace: namespace, api: api });
 	}
 
-		addInvocationAPI(module, "Tichromecast", "Tichromecast", "createDeviceManager");
+		addInvocationAPI(module, "Tichromecast", "Tichromecast", "createMediaRouter");
 
 			if (!("__propertiesDefined__" in module)) {		
 		Object.defineProperties(module, {
-			"DeviceManager": {
+			"MediaRouter": {
 				get: function() {
-					var DeviceManager = lazyGet(this, "ti.chromecast.DeviceManagerProxy", "DeviceManager", "DeviceManager");
-					return DeviceManager;
+					var MediaRouter = lazyGet(this, "ti.chromecast.MediaRouterProxy", "MediaRouter", "MediaRouter");
+					return MediaRouter;
 				},
 				configurable: true
 			},
 		
 		});
-		module.constructor.prototype.createDeviceManager = function() {
-			return new module.DeviceManager(arguments);
+		module.constructor.prototype.createMediaRouter = function() {
+			return new module.MediaRouter(arguments);
 		}
 		}
 		module.__propertiesDefined__ = true;

@@ -11,16 +11,14 @@ package ti.chromecast;
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.annotations.Kroll;
 
-//import android.app.Activity;
-
 @Kroll.module(name = "Tichromecast", id = "ti.chromecast")
 public class ChromecastModule extends KrollModule {
 	public ChromecastModule() {
 		super();
 	}
-
-	// @Override
-	// public void onStart(Activity activity) {
-	// super.onStart(activity);
-	// }
 }
+/*
+ * 
+ * needs: play-service-cast, play-services-base, play-services-basement,
+ * mediarouter-v7
+ */

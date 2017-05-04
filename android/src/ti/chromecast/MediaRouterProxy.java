@@ -8,6 +8,9 @@
  */
 package ti.chromecast;
 
+import java.util.ArrayList;
+
+import org.appcelerator.kroll.KrollDict;
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
@@ -16,32 +19,34 @@ import org.appcelerator.titanium.TiApplication;
 
 import android.content.Context;
 import android.os.Message;
-import android.support.v7.media.MediaControlIntent;
-import android.support.v7.media.MediaRouteSelector;
-import android.support.v7.media.MediaRouter;
-import android.support.v7.media.MediaRouter.Callback;
+import android.support.v7.media.*;
+import android.support.v7.media.MediaRouter.RouteInfo;
 
+import com.google.android.gms.cast.CastDevice;
 import com.google.android.gms.cast.CastMediaControlIntent;
+import com.google.android.gms.cast.framework.CastContext;
 
 @Kroll.proxy(creatableInModule = ChromecastModule.class)
-public class DeviceManagerProxy extends KrollProxy {
+public class MediaRouterProxy extends KrollProxy {
 	// Standard Debugging variables
-	private static final String LCAT = "TCC";
+	private static final String LCAT = "Ti🎈🎈";
 
 	@SuppressWarnings("unused")
-	private MediaRouter mediaRouter;
 	private MediaRouteSelector mediaRouteSelector;
 	private static final int MSG_FIRST_ID = KrollModule.MSG_LAST_ID + 1;
 	private static final int MSG_MEDIAROUTER_START = MSG_FIRST_ID + 100;
 	protected static final int MSG_LAST_ID = MSG_FIRST_ID + 999;
+	private CastDevice selectedDevice;
+	CastContext castContext;
+	Context ctx;
+	MediaRouter mediaRouter;
+	private MediaRouter.Callback mediaRouterCallback;
 
 	@Override
 	public boolean handleMessage(Message msg) {
 		switch (msg.what) {
 		case MSG_MEDIAROUTER_START: {
-			Context context = TiApplication.getInstance()
-					.getApplicationContext();
-			mediaRouter = MediaRouter.getInstance(context);
+			handleMediaRouterInMainThread();
 			return true;
 		}
 		default: {
@@ -50,42 +55,105 @@ public class DeviceManagerProxy extends KrollProxy {
 		}
 	}
 
-	public DeviceManagerProxy() {
+	public MediaRouterProxy() {
 		super();
-		Log.d(LCAT, "init DeviceManagerProxy");
+
 	}
 
-	@Kroll.method
-	public MediaRouteSelector getMediaRouteSelector(String AppID) {
-		MediaRouteSelector selectorBuilder = new MediaRouteSelector.Builder()
+	public void handleCreationDict(KrollDict opts) {
+
+	}
+
+	/* this runs (I hope so) in main thread */
+	private void handleMediaRouterInMainThread() {
+		ctx = TiApplication.getInstance().getApplicationContext();
+		mediaRouter = MediaRouter.getInstance(ctx);
+		// next line kills the app with
+		// Attempt to invoke virtual method 'java.lang.String
+		// android.os.Bundle.getString(java.lang.String)' on a null object
+		// reference
+		castContext = CastContext.getSharedInstance(ctx);
+		Log.d(LCAT, "CastContext.getSharedInstance");
+		Log.d(LCAT, "mediaRouteSelector will build");
+		// http://stackoverflow.com/questions/23220957/can-i-programatically-detect-if-there-are-any-chromecast-devices-on-the-current
+		mediaRouteSelector = new MediaRouteSelector.Builder()
 				.addControlCategory(MediaControlIntent.CATEGORY_LIVE_VIDEO)
 				.addControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK)
 				.build();
-		/**/
-		MediaRouter mediaRouter = MediaRouter.getInstance(TiApplication
-				.getInstance().getApplicationContext());
-		MediaRouteSelector selector = null;
-		Callback callback = null;
-		mediaRouter.addCallback(selector, callback,
-				MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY);
+		Log.d(LCAT, "mediaRouteSelector is built");
+		mediaRouterCallback = new MyMediaRouterCallback();
+
+	}
+
+	@Kroll.method
+	public void stop() {
+		mediaRouter.removeCallback(mediaRouterCallback);
+	}
+
+	@Kroll.method
+	public void start() {
+		Log.d(LCAT, TiApplication.getInstance().getApplicationContext()
+				.getPackageName()
+				+ "."
+				+ TiApplication.getAppRootOrCurrentActivity().getClass()
+						.getSimpleName());
 		// forces to Main thread:
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
 
-		// getting appid from cromecast receiver:
-		String mAppID = (AppID.equals("DEFAULT_MEDIA_RECEIVER")) ? mAppID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID
-				: AppID;
-		Log.d(LCAT, "AppId========" + mAppID);
-		// Configure Cast device discovery
+	}
 
-		try {
-			mediaRouteSelector = new MediaRouteSelector.Builder()
-					.addControlCategory(
-							CastMediaControlIntent.categoryForCast(mAppID))
-					.build();
-		} catch (Exception e) {
-			Log.e(LCAT, "exception: " + e.getMessage());
+	private ArrayList<String> routeNames = new ArrayList<String>();
+	private final ArrayList<MediaRouter.RouteInfo> routeInfos = new ArrayList<MediaRouter.RouteInfo>();
+
+	private class MyMediaRouterCallback extends MediaRouter.Callback {
+
+		@Override
+		public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo info) {
+			Log.d(LCAT, "onRouteAdded: info=" + info);
+
+			// Add route to list of discovered routes
+			synchronized (this) {
+				routeInfos.add(info);
+				routeNames.add(info.getName() + " (" + info.getDescription()
+						+ ")");
+
+			}
+		}
+
+		@Override
+		public void onRouteRemoved(MediaRouter router,
+				MediaRouter.RouteInfo info) {
+			Log.d(LCAT, "onRouteRemoved: info=" + info);
+
+			// Remove route from list of routes
+			synchronized (this) {
+				for (int i = 0; i < routeInfos.size(); i++) {
+					MediaRouter.RouteInfo routeInfo = routeInfos.get(i);
+					if (routeInfo.equals(info)) {
+						routeInfos.remove(i);
+						routeNames.remove(i);
+						return;
+					}
+				}
+			}
+		}
+
+		@Override
+		public void onRouteSelected(MediaRouter router, RouteInfo info) {
+			Log.d(LCAT, "onRouteSelected: info=" + info);
+
+			selectedDevice = CastDevice.getFromBundle(info.getExtras());
+
+			// Just display a message for now; In a real app this would be the
+			// hook to connect to the selected device and launch the receiver
+			// app
 
 		}
-		return mediaRouteSelector;
+
+		@Override
+		public void onRouteUnselected(MediaRouter router, RouteInfo info) {
+			Log.d(LCAT, "onRouteUnselected: info=" + info);
+			selectedDevice = null;
+		}
 	}
 }
