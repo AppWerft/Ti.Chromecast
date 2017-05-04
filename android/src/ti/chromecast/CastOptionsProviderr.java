@@ -7,6 +7,7 @@ import org.appcelerator.titanium.TiApplication;
 
 import android.content.Context;
 
+import com.google.android.gms.cast.CastMediaControlIntent;
 import com.google.android.gms.cast.framework.CastOptions;
 import com.google.android.gms.cast.framework.OptionsProvider;
 import com.google.android.gms.cast.framework.SessionProvider;
@@ -17,16 +18,15 @@ class CastOptionsProvider implements OptionsProvider {
 	public CastOptionsProvider() {
 		Log.d(LCAT, TiApplication.getInstance().getApplicationContext()
 				.getPackageName()
-				+ "."
-				+ TiApplication.getAppRootOrCurrentActivity().getClass()
-						.getSimpleName());
+				+ "." + this.getClass().getSimpleName());
 	}
 
 	@Override
 	public CastOptions getCastOptions(Context appContext) {
 		// TODO getting ID
+		String ID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
 		CastOptions castOptions = new CastOptions.Builder()
-				.setReceiverApplicationId("STRING").build();
+				.setReceiverApplicationId(ID).build();
 		return castOptions;
 	}
 

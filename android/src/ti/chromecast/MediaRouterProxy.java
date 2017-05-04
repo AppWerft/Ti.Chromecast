@@ -92,11 +92,6 @@ public class MediaRouterProxy extends KrollProxy {
 
 	@Kroll.method
 	public void start() {
-		Log.d(LCAT, TiApplication.getInstance().getApplicationContext()
-				.getPackageName()
-				+ "."
-				+ TiApplication.getAppRootOrCurrentActivity().getClass()
-						.getSimpleName());
 		// forces to Main thread:
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
 
