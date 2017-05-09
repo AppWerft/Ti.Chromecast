@@ -16,7 +16,7 @@
 #include "BootstrapJS.cpp"
 #include "KrollGeneratedBindings.cpp"
 
-#define TAG "ti.chromecast"
+#define TAG "ti.googlecast"
 
 using namespace v8;
 
@@ -101,16 +101,16 @@ static void Tichromecast_dispose()
 }
 
 static titanium::bindings::BindEntry TichromecastBinding = {
-	"ti.chromecast",
+	"ti.googlecast",
 	Tichromecast_init,
 	Tichromecast_dispose
 };
 
 // Main module entry point
 extern "C" JNIEXPORT void JNICALL
-Java_ti_chromecast_TichromecastBootstrap_nativeBootstrap
+Java_ti_googlecast_TichromecastBootstrap_nativeBootstrap
 	(JNIEnv *env, jobject self)
 {
-	titanium::KrollBindings::addExternalBinding("ti.chromecast", &TichromecastBinding);
+	titanium::KrollBindings::addExternalBinding("ti.googlecast", &TichromecastBinding);
 	titanium::KrollBindings::addExternalLookup(&(::TichromecastBindings::lookupGeneratedInit));
 }

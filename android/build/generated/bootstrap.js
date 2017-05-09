@@ -16,7 +16,7 @@ function moduleBootstrap(moduleBinding) {
 			name, namespace, moduleBinding.getBinding);
 	}
 
-	var module = moduleBinding.getBinding("ti.chromecast.ChromecastModule")["Tichromecast"];
+	var module = moduleBinding.getBinding("ti.googlecast.ChromecastModule")["Tichromecast"];
 	var invocationAPIs = module.invocationAPIs = [];
 	module.apiName = "Tichromecast";
 
@@ -30,7 +30,7 @@ function moduleBootstrap(moduleBinding) {
 		Object.defineProperties(module, {
 			"MediaRouter": {
 				get: function() {
-					var MediaRouter = lazyGet(this, "ti.chromecast.MediaRouterProxy", "MediaRouter", "MediaRouter");
+					var MediaRouter = lazyGet(this, "ti.googlecast.MediaRouterProxy", "MediaRouter", "MediaRouter");
 					return MediaRouter;
 				},
 				configurable: true

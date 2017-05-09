@@ -1,5 +1,5 @@
 /* C++ code produced by gperf version 3.0.3 */
-/* Command-line: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/gperf -L C++ -E -t /private/var/folders/dp/_57t8_6j247dh0h7mknf97600000gn/T/fuerst/chromecast-generated/KrollGeneratedBindings.gperf  */
+/* Command-line: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/gperf -L C++ -E -t /Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/build/generated/KrollGeneratedBindings.gperf  */
 /* Computed positions: -k'15' */
 
 #if !((' ' == 32) && ('!' == 33) && ('"' == 34) && ('#' == 35) \
@@ -29,18 +29,18 @@
 #error "gperf generated tables don't work with this execution character set. Please report a bug to <bug-gnu-gperf@gnu.org>."
 #endif
 
-#line 3 "/private/var/folders/dp/_57t8_6j247dh0h7mknf97600000gn/T/fuerst/chromecast-generated/KrollGeneratedBindings.gperf"
+#line 3 "/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/build/generated/KrollGeneratedBindings.gperf"
 
 
 #include <string.h>
 #include <v8.h>
 #include <KrollBindings.h>
 
-#include "ti.chromecast.MediaRouterProxy.h"
-#include "ti.chromecast.ChromecastModule.h"
+#include "ti.googlecast.ChromecastModule.h"
+#include "ti.googlecast.MediaRouterProxy.h"
 
 
-#line 14 "/private/var/folders/dp/_57t8_6j247dh0h7mknf97600000gn/T/fuerst/chromecast-generated/KrollGeneratedBindings.gperf"
+#line 14 "/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/build/generated/KrollGeneratedBindings.gperf"
 struct titanium::bindings::BindEntry;
 /* maximum key range = 2, duplicates = 0 */
 
@@ -105,10 +105,10 @@ TichromecastBindings::lookupGeneratedInit (register const char *str, register un
       {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
       {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""}, {""},
       {""}, {""}, {""},
-#line 16 "/private/var/folders/dp/_57t8_6j247dh0h7mknf97600000gn/T/fuerst/chromecast-generated/KrollGeneratedBindings.gperf"
-      {"ti.chromecast.MediaRouterProxy", ::ti::chromecast::tichromecast::MediaRouterProxy::bindProxy, ::ti::chromecast::tichromecast::MediaRouterProxy::dispose},
-#line 17 "/private/var/folders/dp/_57t8_6j247dh0h7mknf97600000gn/T/fuerst/chromecast-generated/KrollGeneratedBindings.gperf"
-      {"ti.chromecast.ChromecastModule", ::ti::chromecast::ChromecastModule::bindProxy, ::ti::chromecast::ChromecastModule::dispose}
+#line 16 "/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/build/generated/KrollGeneratedBindings.gperf"
+      {"ti.googlecast.MediaRouterProxy",::ti::googlecast::tichromecast::MediaRouterProxy::bindProxy,::ti::googlecast::tichromecast::MediaRouterProxy::dispose},
+#line 17 "/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/build/generated/KrollGeneratedBindings.gperf"
+      {"ti.googlecast.ChromecastModule",::ti::googlecast::ChromecastModule::bindProxy,::ti::googlecast::ChromecastModule::dispose}
     };
 
   if (len <= MAX_WORD_LENGTH && len >= MIN_WORD_LENGTH)
@@ -125,5 +125,5 @@ TichromecastBindings::lookupGeneratedInit (register const char *str, register un
     }
   return 0;
 }
-#line 18 "/private/var/folders/dp/_57t8_6j247dh0h7mknf97600000gn/T/fuerst/chromecast-generated/KrollGeneratedBindings.gperf"
+#line 18 "/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/build/generated/KrollGeneratedBindings.gperf"
 

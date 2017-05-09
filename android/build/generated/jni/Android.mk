@@ -1,11 +1,11 @@
-# Android.mk for ti.chromecast
+# Android.mk for ti.googlecast
 LOCAL_PATH := $(call my-dir)
 THIS_DIR := $(LOCAL_PATH)
 
 include $(CLEAR_VARS)
 
 THIS_DIR = $(LOCAL_PATH)
-LOCAL_MODULE := ti.chromecast
+LOCAL_MODULE := ti.googlecast
 LOCAL_CFLAGS := -g "-I$(TI_MOBILE_SDK)/android/native/include"
 
 # https://jira.appcelerator.org/browse/TIMOB-15263
@@ -33,8 +33,5 @@ $(BOOTSTRAP_CPP): $(GEN_DIR)/KrollGeneratedBindings.cpp $(GEN_DIR)/BootstrapJS.c
 
 $(GEN_DIR)/KrollGeneratedBindings.cpp:
 	gperf -L C++ -E -t "$(GEN_DIR)/KrollGeneratedBindings.gperf" > "$(GEN_DIR)/KrollGeneratedBindings.cpp"
-
-$(GEN_DIR)/BootstrapJS.cpp:
-	"$(PYTHON)" "$(TI_MOBILE_SDK)/module/android/js2c.py" "$(GEN_DIR)/BootstrapJS.cpp" "$(GEN_DIR)/bootstrap.js"
 
 include $(BUILD_SHARED_LIBRARY)
