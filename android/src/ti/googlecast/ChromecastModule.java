@@ -13,6 +13,8 @@ import org.appcelerator.kroll.annotations.Kroll;
 
 @Kroll.module(name = "Tichromecast", id = "ti.googlecast")
 public class ChromecastModule extends KrollModule {
+	public static final String LCAT = "Ti🎈🎈";
+
 	public ChromecastModule() {
 		super();
 	}

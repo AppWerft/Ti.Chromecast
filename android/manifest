@@ -2,10 +2,10 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 1.0.8
+version: 1.0.20
 apiversion: 2
 architectures: armeabi armeabi-v7a x86
-#respackage:  android.support.v7.media
+#respackage:  com.google.android.gms
 description: Module for realizing of Chromecast Communication
 author: APPWERFT
 license: MIT

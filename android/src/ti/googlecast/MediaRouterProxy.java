@@ -9,14 +9,17 @@
 package ti.googlecast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.appcelerator.kroll.KrollDict;
+import org.appcelerator.kroll.KrollFunction;
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.common.Log;
 import org.appcelerator.titanium.TiApplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Message;
 import android.support.v7.media.*;
@@ -29,24 +32,38 @@ import com.google.android.gms.cast.framework.CastContext;
 @Kroll.proxy(creatableInModule = ChromecastModule.class)
 public class MediaRouterProxy extends KrollProxy {
 	// Standard Debugging variables
-	private static final String LCAT = "Ti🎈🎈";
-
+	private static final String LCAT = ChromecastModule.LCAT;
+	final String DEFAULTID = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
 	@SuppressWarnings("unused")
 	private MediaRouteSelector mediaRouteSelector;
 	private static final int MSG_FIRST_ID = KrollModule.MSG_LAST_ID + 1;
+	private static final int MSG_MEDIAROUTER_INIT = MSG_FIRST_ID + 99;
 	private static final int MSG_MEDIAROUTER_START = MSG_FIRST_ID + 100;
+	private static final int MSG_MEDIAROUTER_STOP = MSG_FIRST_ID + 101;
+	private static final int MSG_MEDIAROUTER_SELECT = MSG_FIRST_ID + 102;
+
 	protected static final int MSG_LAST_ID = MSG_FIRST_ID + 999;
 	private CastDevice selectedDevice;
-	CastContext castContext;
-	Context ctx;
-	MediaRouter mediaRouter;
+	private CastContext castContext;
+	private Context ctx;
+	private MediaRouter mediaRouter;
 	private MediaRouter.Callback mediaRouterCallback;
+	private ArrayList<String> routeNames = new ArrayList<String>();
+	private ArrayList<RouteInfoProxy> routeInfos = new ArrayList<RouteInfoProxy>();
 
 	@Override
 	public boolean handleMessage(Message msg) {
 		switch (msg.what) {
 		case MSG_MEDIAROUTER_START: {
-			handleMediaRouterInMainThread();
+			handleStartRouter();
+			return true;
+		}
+		case MSG_MEDIAROUTER_STOP: {
+			handleStop();
+			return true;
+		}
+		case MSG_MEDIAROUTER_SELECT: {
+			handleSelectRoute((RouteInfoProxy) msg.obj);
 			return true;
 		}
 		default: {
@@ -63,12 +80,19 @@ public class MediaRouterProxy extends KrollProxy {
 
 	}
 
-	public void handleCreationDict(KrollDict opts) {
+	private KrollFunction onChanged;
 
+	public void handleCreationDict(
+			@Kroll.argument(optional = true) KrollDict opts) {
+		if (opts.containsKeyAndNotNull("changed")) {
+			onChanged = (KrollFunction) (opts.get("changed"));
+		}
+		start();
+		super.handleCreationDict(opts);
 	}
 
 	/* this runs (I hope so) in main thread */
-	private void handleMediaRouterInMainThread() {
+	private void handleStartRouter() {
 		ctx = TiApplication.getInstance().getApplicationContext();
 		mediaRouter = MediaRouter.getInstance(ctx);
 		// next line kills the app with
@@ -76,45 +100,74 @@ public class MediaRouterProxy extends KrollProxy {
 		// android.os.Bundle.getString(java.lang.String)' on a null object
 		// reference
 		castContext = CastContext.getSharedInstance(ctx);
-		Log.d(LCAT, "CastContext.getSharedInstance");
-		Log.d(LCAT, "mediaRouteSelector will build");
-		// http://stackoverflow.com/questions/23220957/can-i-programatically-detect-if-there-are-any-chromecast-devices-on-the-current
+		// https://github.com/googlecast/MediaRouter-Cast-Button-android/tree/master/src/com/example/mediarouter
+
 		mediaRouteSelector = new MediaRouteSelector.Builder()
 				.addControlCategory(MediaControlIntent.CATEGORY_LIVE_VIDEO)
+				.addControlCategory(MediaControlIntent.CATEGORY_LIVE_AUDIO)
 				.addControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK)
+				.addControlCategory(
+						CastMediaControlIntent
+								.categoryForRemotePlayback(DEFAULTID)) //
 				.build();
-		Log.d(LCAT, "mediaRouteSelector is built");
-		mediaRouterCallback = new MyMediaRouterCallback();
+		// Create a MediaRouter callback for discovery events
+		mediaRouterCallback = new MediaRouterCallback();
+		// in onResume, currently here TODO
+		mediaRouter.addCallback(mediaRouteSelector, mediaRouterCallback,
+				MediaRouter.CALLBACK_FLAG_PERFORM_ACTIVE_SCAN);
+		for (RouteInfo info : mediaRouter.getRoutes()) {
+			routeInfos.add(new RouteInfoProxy(info));
+		}
+		sendRoutingChangesBackToJavascriptLayer();
 
+	}
+
+	private void sendRoutingChangesBackToJavascriptLayer() {
+		KrollDict kd = new KrollDict();
+		kd.put("casts", routeInfos.toArray());
+		if (onChanged != null) {
+			onChanged.call(getKrollObject(), kd);
+		}
+		if (hasListeners("onchanged")) {
+			fireEvent("onchanged", kd);
+		}
+	}
+
+	@Kroll.method
+	public void selectRoute(RouteInfoProxy proxy) {
+		getMainHandler().obtainMessage(MSG_MEDIAROUTER_SELECT, proxy)
+				.sendToTarget();
+
+	}
+
+	private void handleSelectRoute(RouteInfoProxy proxy) {
+		if (mediaRouter != null)
+			mediaRouter.selectRoute(proxy.getInfo());
+		else
+			Log.w(LCAT, "mediaRouter was null, cannot selectRoute");
 	}
 
 	@Kroll.method
 	public void stop() {
-		mediaRouter.removeCallback(mediaRouterCallback);
+		// forces to Main thread:
+		getMainHandler().obtainMessage(MSG_MEDIAROUTER_STOP).sendToTarget();
 	}
 
 	@Kroll.method
 	public void start() {
-		// forces to Main thread:
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
-
 	}
 
-	private ArrayList<String> routeNames = new ArrayList<String>();
-	private final ArrayList<MediaRouter.RouteInfo> routeInfos = new ArrayList<MediaRouter.RouteInfo>();
-
-	private class MyMediaRouterCallback extends MediaRouter.Callback {
+	private class MediaRouterCallback extends MediaRouter.Callback {
 
 		@Override
 		public void onRouteAdded(MediaRouter router, MediaRouter.RouteInfo info) {
 			Log.d(LCAT, "onRouteAdded: info=" + info);
-
+			KrollDict kd = new KrollDict();
 			// Add route to list of discovered routes
 			synchronized (this) {
-				routeInfos.add(info);
-				routeNames.add(info.getName() + " (" + info.getDescription()
-						+ ")");
-
+				routeInfos.add(new RouteInfoProxy(info));
+				sendRoutingChangesBackToJavascriptLayer();
 			}
 		}
 
@@ -122,26 +175,24 @@ public class MediaRouterProxy extends KrollProxy {
 		public void onRouteRemoved(MediaRouter router,
 				MediaRouter.RouteInfo info) {
 			Log.d(LCAT, "onRouteRemoved: info=" + info);
-
-			// Remove route from list of routes
 			synchronized (this) {
 				for (int i = 0; i < routeInfos.size(); i++) {
-					MediaRouter.RouteInfo routeInfo = routeInfos.get(i);
-					if (routeInfo.equals(info)) {
+					RouteInfoProxy routeInfo = routeInfos.get(i);
+					if (routeInfo.getInfo().equals(info)) {
 						routeInfos.remove(i);
-						routeNames.remove(i);
 						return;
 					}
 				}
+				sendRoutingChangesBackToJavascriptLayer();
 			}
 		}
 
 		@Override
 		public void onRouteSelected(MediaRouter router, RouteInfo info) {
 			Log.d(LCAT, "onRouteSelected: info=" + info);
-
 			selectedDevice = CastDevice.getFromBundle(info.getExtras());
-
+			// Log.d(LCAT, selectedDevice.getFriendlyName());
+			// Log.d(LCAT, selectedDevice.toString());
 			// Just display a message for now; In a real app this would be the
 			// hook to connect to the selected device and launch the receiver
 			// app
@@ -149,9 +200,49 @@ public class MediaRouterProxy extends KrollProxy {
 		}
 
 		@Override
-		public void onRouteUnselected(MediaRouter router, RouteInfo info) {
-			Log.d(LCAT, "onRouteUnselected: info=" + info);
+		public void onRouteUnselected(MediaRouter router, RouteInfo route) {
+			Log.d(LCAT, "onRouteUnselected: info=" + route);
 			selectedDevice = null;
 		}
+	}
+
+	private void handleStop() {
+		if (mediaRouter != null)
+			mediaRouter.removeCallback(mediaRouterCallback);
+	}
+
+	@Override
+	public void onStart(Activity activity) {
+		super.onStart(activity);
+		Log.d(LCAT, "[MODULE LIFECYCLE EVENT] start");
+	}
+
+	@Override
+	public void onStop(Activity activity) {
+		Log.d(LCAT, "[MODULE LIFECYCLE EVENT] stop");
+		stop();
+		super.onStop(activity);
+	}
+
+	@Override
+	public void onPause(Activity activity) {
+		Log.d(LCAT, "[MODULE LIFECYCLE EVENT] pause");
+		stop();
+		super.onPause(activity);
+	}
+
+	@Override
+	public void onResume(Activity activity) {
+		super.onResume(activity);
+		Log.d(LCAT, "[MODULE LIFECYCLE EVENT] resume");
+		mediaRouter.addCallback(mediaRouteSelector, mediaRouterCallback,
+				MediaRouter.CALLBACK_FLAG_REQUEST_DISCOVERY);
+
+	}
+
+	@Override
+	public void onDestroy(Activity activity) {
+		Log.d(LCAT, "[MODULE LIFECYCLE EVENT] destroy");
+		super.onDestroy(activity);
 	}
 }

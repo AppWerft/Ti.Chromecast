@@ -10,12 +10,12 @@ Usage:
 // reference the module
 var Chromecast = require('ti.chromecast');
 
-var deviceManager = require('ti.chromecast').createDeviceManager();
-deviceManager.getMediaRouteSelector('DEFAULT_MEDIA_RECEIVER');// for custome player required or "DEFAULT_MEDIA_RECEIVER"
-deviceManager.addEventListener('deviceOnline', function(e) {
-    var device = e.device;
+var MediaRouter = require('ti.chromecast').createMediaRouter();
+MediaRouter.addEventListener("onchanged",fucntion(e){
+    e.casts.forEach(function(cast){
+        console.log(cast.getName);
+    });
+    // after selection of user in list:
+    MediaRouter.select(e.casts[index]);
 });
-
-
-
 ~~~

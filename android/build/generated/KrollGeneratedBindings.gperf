@@ -7,12 +7,14 @@
 #include <KrollBindings.h>
 
 #include "ti.googlecast.ChromecastModule.h"
+#include "ti.googlecast.RouteInfoProxy.h"
 #include "ti.googlecast.MediaRouterProxy.h"
 
 
 %}
 struct titanium::bindings::BindEntry;
 %%
-ti.googlecast.ChromecastModule, ::ti::googlecast::ChromecastModule::bindProxy, ::ti::googlecast::ChromecastModule::dispose
-ti.googlecast.MediaRouterProxy, ::ti::googlecast::tichromecast::MediaRouterProxy::bindProxy, ::ti::googlecast::tichromecast::MediaRouterProxy::dispose
+ti.googlecast.MediaRouterProxy,::ti::googlecast::tichromecast::MediaRouterProxy::bindProxy,::ti::googlecast::tichromecast::MediaRouterProxy::dispose
+ti.googlecast.RouteInfoProxy,::ti::googlecast::tichromecast::RouteInfoProxy::bindProxy,::ti::googlecast::tichromecast::RouteInfoProxy::dispose
+ti.googlecast.ChromecastModule,::ti::googlecast::ChromecastModule::bindProxy,::ti::googlecast::ChromecastModule::dispose
 %%

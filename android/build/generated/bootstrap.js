@@ -24,25 +24,33 @@ function moduleBootstrap(moduleBinding) {
 		invocationAPIs.push({ namespace: namespace, api: api });
 	}
 
-		addInvocationAPI(module, "Tichromecast", "Tichromecast", "createMediaRouter");
+	addInvocationAPI(module, "Tichromecast", "Tichromecast", "createMediaRouter");addInvocationAPI(module, "Tichromecast", "Tichromecast", "createRouteInfo");
+		if (!("__propertiesDefined__" in module)) {Object.defineProperties(module, {
+"RouteInfo": {
+get: function() {
+var RouteInfo =  lazyGet(this, "ti.googlecast.RouteInfoProxy", "RouteInfo", "RouteInfo");
+return RouteInfo;
+},
+configurable: true
+},
+"MediaRouter": {
+get: function() {
+var MediaRouter =  lazyGet(this, "ti.googlecast.MediaRouterProxy", "MediaRouter", "MediaRouter");
+return MediaRouter;
+},
+configurable: true
+},
 
-			if (!("__propertiesDefined__" in module)) {		
-		Object.defineProperties(module, {
-			"MediaRouter": {
-				get: function() {
-					var MediaRouter = lazyGet(this, "ti.googlecast.MediaRouterProxy", "MediaRouter", "MediaRouter");
-					return MediaRouter;
-				},
-				configurable: true
-			},
-		
-		});
-		module.constructor.prototype.createMediaRouter = function() {
-			return new module.MediaRouter(arguments);
-		}
-		}
-		module.__propertiesDefined__ = true;
-		return module;
+});
+module.constructor.prototype.createMediaRouter = function() {
+return new module["MediaRouter"](arguments);
+}
+module.constructor.prototype.createRouteInfo = function() {
+return new module["RouteInfo"](arguments);
+}
+}
+module.__propertiesDefined__ = true;
+return module;
 
 }
 exports.bootstrap = moduleBootstrap;
