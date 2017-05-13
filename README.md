@@ -1,16 +1,17 @@
-Ti.Chromecast
-=============
-This is a Titanium Mobile for Chromecast and still under work. For iOS version please look here: https://github.com/ajwhite/titanium-chromecast
-The project is still under construction. Thanks for help to Андрей and Manumaticx.
+# Ti.Chromecast
+This is a Titanium module for Google's chromecast and still under construction. For iOS version please look here: https://github.com/ajwhite/titanium-chromecast. Thanks for help to Андрей and Manumaticx.
 
 
-Usage:
-------
+## Attention
+
+The used google library (closed source) suite uses more then one aar. Every module can only contains one res folder. Therefore the build of app needs a patch. YOu find it in android/ti-cli-5  (or ti-cli-6) folder. This patch uses the aars in aar folder of module to create R.classes.
+
+## Usage:
 ~~~
 // reference the module
 var Chromecast = require('ti.chromecast');
 
-var MediaRouter = require('ti.chromecast').createMediaRouter();
+var MediaRouter = Chromecast.createMediaRouter();
 MediaRouter.addEventListener("onchanged",fucntion(e){
     e.casts.forEach(function(cast){
         console.log(cast.getName);
