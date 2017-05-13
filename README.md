@@ -58,6 +58,7 @@ A route has these methods:
 - [x] getName();
 - [x] getDescription();
 - [x] isSelected();
+- [x] toJSON(); // for all properties
 - [x] select(); // next chapter
 
 ### Selecting of route (device)
