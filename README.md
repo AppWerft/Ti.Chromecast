@@ -9,6 +9,21 @@ For iOS version please look here: https://github.com/ajwhite/titanium-chromecast
 
 The used google library (google-play-service.cast and others) uses more then one aar. In current version of Titanium SDK every module can only contains one res folder. Therefore the build process of app needs a patch. You find it in android/ti-cli-5  (or ti-cli-6) folder. This patch uses the aars in aar folder of module to create R.classes.
 
+## Constants
+
+### Device types
+- [x] DEVICE_TYPE_BLUETOOTH 
+- [x] DEVICE_TYPE_SPEAKER 
+- [x] DEVICE_TYPE_TV 
+- [x] DEVICE_TYPE_UNKNOWN 
+- [x] DEVICE_TYPE_BLUETOOTH 
+
+### Connection state
+- [x] CONNECTION_STATE_DISCONNECTED
+- [x] CONNECTION_STATE_CONNECTING
+- [x] CONNECTION_STATE_CONNECTED
+
+
 ## Usage:
 
 ### Browsing for chromecasts:
