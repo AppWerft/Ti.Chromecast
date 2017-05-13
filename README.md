@@ -12,12 +12,21 @@ The used google library (closed source) suite uses more then one aar. Every modu
 // reference the module
 var Chromecast = require('ti.chromecast');
 
-var MediaRouter = Chromecast.createMediaRouter();
+var MediaRouter = Chromecast.createMediaRouter({
+    lifecycleContainer : window  // for liefcycle management of discoverer
+});
+// you can ask:
+var routes = MediaRouter.getRoutes();
+
+// or listen to changes
 MediaRouter.addEventListener("onchanged",fucntion(e){
-    e.casts.forEach(function(cast){
-        console.log(cast.getName);
+    e.routes.forEach(function(route){
+        console.log(route.getName());
     });
     // after selection of user in list:
-    MediaRouter.select(e.casts[index]);
+    route.select();
+    route.playLiveAudio({
+        url : ""
+    })
 });
 ~~~
