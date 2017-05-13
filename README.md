@@ -68,3 +68,12 @@ Route.select();
 Route.addEventListener("selected",function(){
 });
 ```
+
+### Sending control request
+
+- [x] playRemotePlayback()
+- [x] enqueueRemotePlayback() 
+- [x] startLiveAudio()
+- [x] startLiveVideo()
+
+
