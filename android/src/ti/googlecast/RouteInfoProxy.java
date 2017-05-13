@@ -24,7 +24,6 @@ import android.support.v7.media.MediaControlIntent;
 import android.support.v7.media.MediaRouter;
 import android.support.v7.media.MediaRouter.RouteInfo;
 
-import com.google.android.gms.cast.CastDevice;
 import com.google.android.gms.cast.CastMediaControlIntent;
 import com.google.android.gms.cast.framework.CastContext;
 
@@ -34,68 +33,61 @@ public class RouteInfoProxy extends KrollProxy {
 	private static final String LCAT = ChromecastModule.LCAT;
 
 	@SuppressWarnings("unused")
-	private RouteInfo info;
+	public RouteInfo route;
 	private static final int MSG_FIRST_ID = KrollModule.MSG_LAST_ID + 1;
 	private static final int MSG_SELECT = MSG_FIRST_ID + 100;
 	private static final int MSG_START = MSG_FIRST_ID + 101;
-	private CastDevice selectedDevice;
-	private CastContext castContext;
-	private Context ctx;
-	private MediaRouter mediaRouter;
-	private MediaRouter.Callback mediaRouterCallback;
-	private ArrayList<String> routeNames = new ArrayList<String>();
-	private final ArrayList<MediaRouter.RouteInfo> routeInfos = new ArrayList<MediaRouter.RouteInfo>();
 
-	public RouteInfoProxy(RouteInfo info) {
-		this.info = info;
+	public RouteInfoProxy(RouteInfo route) {
+		this.route = route;
 	}
 
-	public RouteInfo getInfo() {
-		return info;
+	public RouteInfo getRoute() {
+		return this.route;
 	}
 
 	@Kroll.method
 	public String getName() {
-		return this.info.getName();
+		return this.route.getName();
 	}
 
 	@Kroll.method
 	public String getDescription() {
-		return this.info.getDescription();
+		return this.route.getDescription();
 	}
 
 	@Kroll.method
 	public String getId() {
-		return this.info.getId();
+		return this.route.getId();
 	}
 
 	@Kroll.method
 	public boolean isSelected() {
-		return this.info.isSelected();
+		return this.route.isSelected();
 	}
 
 	@Kroll.method
 	public int getDeviceType() {
-		return this.info.getDeviceType();
+		return this.route.getDeviceType();
 	}
 
 	@Kroll.method
 	public boolean isEnabled() {
-		return this.info.isEnabled();
+		return this.route.isEnabled();
 	}
 
 	@Kroll.method
 	public KrollDict toJSON() {
 		KrollDict kd = new KrollDict();
-		kd.put("canDisconnect", this.info.canDisconnect());
-		kd.put("name", this.info.getName());
-		kd.put("description", this.info.getDescription());
-		kd.put("enabled", this.info.isEnabled());
-		kd.put("selected", this.info.isSelected());
-		kd.put("connectionState", this.info.getConnectionState());
-		kd.put("deviceType", this.info.getDeviceType());
-		MediaRouter.ProviderInfo provInfo = this.info.getProvider();
-		kd.put("provider", this.info.getProvider().toString());
+		kd.put("canDisconnect", this.route.canDisconnect());
+		kd.put("name", this.route.getName());
+		kd.put("description", this.route.getDescription());
+		kd.put("enabled", this.route.isEnabled());
+		kd.put("selected", this.route.isSelected());
+		kd.put("connectionState", this.route.getConnectionState());
+		kd.put("deviceType", this.route.getDeviceType());
+		MediaRouter.ProviderInfo provInfo = this.route.getProvider();
+		kd.put("provider", this.route.getProvider().toString());
 
 		return kd;
 	}
@@ -103,7 +95,7 @@ public class RouteInfoProxy extends KrollProxy {
 	@Kroll.method
 	public void select() {
 		getMainHandler().obtainMessage(MSG_SELECT).sendToTarget();
-		this.info.select();
+		this.route.select();
 	}
 
 	@Kroll.method
@@ -167,7 +159,7 @@ public class RouteInfoProxy extends KrollProxy {
 				CastMediaControlIntent.EXTRA_CAST_STOP_APPLICATION_WHEN_SESSION_ENDS,
 				true);
 
-		this.info.sendControlRequest(intent,
+		this.route.sendControlRequest(intent,
 				new MediaRouter.ControlRequestCallback() {
 					@Override
 					public void onResult(Bundle data) {
@@ -180,14 +172,14 @@ public class RouteInfoProxy extends KrollProxy {
 
 	@Kroll.method
 	public boolean canDisconnect() {
-		return this.info.canDisconnect();
+		return this.route.canDisconnect();
 	}
 
 	@Override
 	public boolean handleMessage(Message msg) {
 		switch (msg.what) {
 		case MSG_SELECT: {
-			this.info.select();
+			this.route.select();
 			return true;
 		}
 		case MSG_START: {

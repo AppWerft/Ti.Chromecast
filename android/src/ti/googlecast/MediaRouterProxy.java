@@ -142,7 +142,7 @@ public class MediaRouterProxy extends KrollProxy {
 
 	private void handleSelectRoute(RouteInfoProxy proxy) {
 		if (mediaRouter != null)
-			mediaRouter.selectRoute(proxy.getInfo());
+			mediaRouter.selectRoute(proxy.route);
 		else
 			Log.w(LCAT, "mediaRouter was null, cannot selectRoute");
 	}
@@ -173,12 +173,12 @@ public class MediaRouterProxy extends KrollProxy {
 
 		@Override
 		public void onRouteRemoved(MediaRouter router,
-				MediaRouter.RouteInfo info) {
-			Log.d(LCAT, "onRouteRemoved: info=" + info);
+				MediaRouter.RouteInfo route) {
+			Log.d(LCAT, "onRouteRemoved: info=" + route);
 			synchronized (this) {
 				for (int i = 0; i < routeInfos.size(); i++) {
 					RouteInfoProxy routeInfo = routeInfos.get(i);
-					if (routeInfo.getInfo().equals(info)) {
+					if (routeInfo.route.equals(route)) {
 						routeInfos.remove(i);
 						return;
 					}
