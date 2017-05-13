@@ -33,4 +33,6 @@ With this result you can build a selector for device. I.e. an Ti.UI.OptionDialog
 
 ```javascript
 Route.select();
+Route.addEventListener("selected",function(){
+});
 ```
