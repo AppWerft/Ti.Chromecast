@@ -9,14 +9,25 @@
 package ti.googlecast;
 
 import org.appcelerator.kroll.KrollModule;
+import android.support.v7.media.MediaRouter;
+import android.support.v7.media.MediaRouter.RouteInfo;
+
 import org.appcelerator.kroll.annotations.Kroll;
 
 @Kroll.module(name = "Tichromecast", id = "ti.googlecast")
 public class ChromecastModule extends KrollModule {
 	public static final String LCAT = "Ti🎈🎈";
 
+	@Kroll.constant
+	public final int DEVICE_TYPE_BLUETOOTH = MediaRouter.RouteInfo.DEVICE_TYPE_BLUETOOTH;
+	@Kroll.constant
+	public final int DEVICE_TYPE_SPEAKER = MediaRouter.RouteInfo.DEVICE_TYPE_SPEAKER;
+	@Kroll.constant
+	public final int DEVICE_TYPE_TV = MediaRouter.RouteInfo.DEVICE_TYPE_TV;
+
 	public ChromecastModule() {
 		super();
+
 	}
 }
 /*
