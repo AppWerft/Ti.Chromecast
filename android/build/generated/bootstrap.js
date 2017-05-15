@@ -24,7 +24,7 @@ function moduleBootstrap(moduleBinding) {
 		invocationAPIs.push({ namespace: namespace, api: api });
 	}
 
-	addInvocationAPI(module, "Tichromecast", "Tichromecast", "createMediaRouter");addInvocationAPI(module, "Tichromecast", "Tichromecast", "createRouteInfo");
+	addInvocationAPI(module, "Tichromecast", "Tichromecast", "createRouteInfo");
 		if (!("__propertiesDefined__" in module)) {Object.defineProperties(module, {
 "RouteInfo": {
 get: function() {
@@ -33,18 +33,8 @@ return RouteInfo;
 },
 configurable: true
 },
-"MediaRouter": {
-get: function() {
-var MediaRouter =  lazyGet(this, "ti.googlecast.MediaRouterProxy", "MediaRouter", "MediaRouter");
-return MediaRouter;
-},
-configurable: true
-},
 
 });
-module.constructor.prototype.createMediaRouter = function() {
-return new module["MediaRouter"](arguments);
-}
 module.constructor.prototype.createRouteInfo = function() {
 return new module["RouteInfo"](arguments);
 }

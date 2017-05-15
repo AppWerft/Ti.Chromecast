@@ -14,6 +14,7 @@ import org.appcelerator.kroll.KrollDict;
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
+import org.appcelerator.kroll.common.Log;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,17 +30,25 @@ import com.google.android.gms.cast.framework.CastContext;
 
 @Kroll.proxy(creatableInModule = ChromecastModule.class)
 public class RouteInfoProxy extends KrollProxy {
-	// Standard Debugging variables
 	private static final String LCAT = ChromecastModule.LCAT;
 
-	@SuppressWarnings("unused")
 	public RouteInfo route;
 	private static final int MSG_FIRST_ID = KrollModule.MSG_LAST_ID + 1;
 	private static final int MSG_SELECT = MSG_FIRST_ID + 100;
 	private static final int MSG_START = MSG_FIRST_ID + 101;
 
+	public RouteInfoProxy() {
+		super();
+
+	}
+
 	public RouteInfoProxy(RouteInfo route) {
-		this.route = route;
+		super();
+		if (route instanceof RouteInfo)
+			this.route = (RouteInfo) route;
+		else
+			Log.e(LCAT, "Unable to create RouteInfoProxy. Invalid type.");
+
 	}
 
 	public RouteInfo getRoute() {
@@ -77,25 +86,8 @@ public class RouteInfoProxy extends KrollProxy {
 	}
 
 	@Kroll.method
-	public KrollDict toJSON() {
-		KrollDict kd = new KrollDict();
-		kd.put("canDisconnect", this.route.canDisconnect());
-		kd.put("name", this.route.getName());
-		kd.put("description", this.route.getDescription());
-		kd.put("enabled", this.route.isEnabled());
-		kd.put("selected", this.route.isSelected());
-		kd.put("connectionState", this.route.getConnectionState());
-		kd.put("deviceType", this.route.getDeviceType());
-		MediaRouter.ProviderInfo provInfo = this.route.getProvider();
-		kd.put("provider", this.route.getProvider().toString());
-
-		return kd;
-	}
-
-	@Kroll.method
 	public void select() {
 		getMainHandler().obtainMessage(MSG_SELECT).sendToTarget();
-		this.route.select();
 	}
 
 	@Kroll.method
@@ -132,15 +124,11 @@ public class RouteInfoProxy extends KrollProxy {
 		getMainHandler().obtainMessage(MSG_START, bundle).sendToTarget();
 	}
 
-	@Kroll.method
-	public void enqueueRemotePlayback() {
-
-	}
-
 	private void handleSendControlRequest(Bundle bundle) {
 		checkCallingThread();
 		boolean enqueue = bundle.containsKey("enqueue") ? true : false;
 		boolean live = bundle.containsKey("live") ? true : false;
+		boolean video = bundle.containsKey("video") ? true : false;
 		String uri = bundle.getString("uri");
 
 		Intent intent = new Intent(MediaControlIntent.ACTION_START_SESSION);
@@ -154,11 +142,9 @@ public class RouteInfoProxy extends KrollProxy {
 				true);
 		intent.putExtra(CastMediaControlIntent.EXTRA_DEBUG_LOGGING_ENABLED,
 				true);
-
 		intent.putExtra(
 				CastMediaControlIntent.EXTRA_CAST_STOP_APPLICATION_WHEN_SESSION_ENDS,
 				true);
-
 		this.route.sendControlRequest(intent,
 				new MediaRouter.ControlRequestCallback() {
 					@Override
@@ -166,6 +152,11 @@ public class RouteInfoProxy extends KrollProxy {
 						super.onResult(data);
 						String sessionId = data
 								.getString(MediaControlIntent.EXTRA_SESSION_ID);
+					}
+
+					@Override
+					public void onError(String error, Bundle data) {
+						super.onError(error, data);
 					}
 				});
 	}
@@ -193,17 +184,17 @@ public class RouteInfoProxy extends KrollProxy {
 		}
 	}
 
-	public RouteInfoProxy() {
-		super();
-
-	}
-
 	static void checkCallingThread() {
 		if (Looper.myLooper() != Looper.getMainLooper()) {
 			throw new IllegalStateException(
 					"The media router service must only be "
 							+ "accessed on the application's main thread.");
 		}
+	}
+
+	@Kroll.method
+	public String getApiName() {
+		return "ti.chromecast.RouteInfo";
 	}
 
 }
