@@ -8,16 +8,14 @@
  */
 package ti.googlecast;
 
-import java.util.ArrayList;
-
 import org.appcelerator.kroll.KrollDict;
 import org.appcelerator.kroll.KrollModule;
 import org.appcelerator.kroll.KrollProxy;
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.common.Log;
 
-import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Message;
@@ -26,7 +24,6 @@ import android.support.v7.media.MediaRouter;
 import android.support.v7.media.MediaRouter.RouteInfo;
 
 import com.google.android.gms.cast.CastMediaControlIntent;
-import com.google.android.gms.cast.framework.CastContext;
 
 @Kroll.proxy(creatableInModule = ChromecastModule.class)
 public class RouteInfoProxy extends KrollProxy {
@@ -51,10 +48,6 @@ public class RouteInfoProxy extends KrollProxy {
 
 	}
 
-	public RouteInfo getRoute() {
-		return this.route;
-	}
-
 	@Kroll.method
 	public String getName() {
 		return this.route.getName();
@@ -76,8 +69,60 @@ public class RouteInfoProxy extends KrollProxy {
 	}
 
 	@Kroll.method
-	public int getDeviceType() {
-		return this.route.getDeviceType();
+	public String getIcon() {
+		Uri uri = this.route.getIconUri();
+		return (uri == null) ? null : uri.toString();
+	}
+
+	@Kroll.method
+	public KrollDict getExtras() {
+		KrollDict kd = new KrollDict();
+		/*
+		 * Bundle bundle = this.route.getExtras(); if (bundle != null) for
+		 * (String key : bundle.keySet()) { // kd.put(key, true);//
+		 * bundle.get(key).toString()); // To // Implement }
+		 */
+		return kd;
+	}
+
+	@Kroll.method
+	public KrollDict getDeviceType() {
+		KrollDict kd = new KrollDict();
+		kd.put("type", this.route.getDeviceType());
+		switch (this.route.getDeviceType()) {
+		case MediaRouter.RouteInfo.DEVICE_TYPE_BLUETOOTH:
+			kd.put("typeName", "BLUETOOTH");
+			break;
+		case MediaRouter.RouteInfo.DEVICE_TYPE_SPEAKER:
+			kd.put("typeName", "SPEAKER");
+			break;
+		case MediaRouter.RouteInfo.DEVICE_TYPE_TV:
+			kd.put("typeName", "IV");
+			break;
+		case MediaRouter.RouteInfo.DEVICE_TYPE_UNKNOWN:
+			kd.put("typeName", "UNKNOWN");
+			break;
+		}
+		return kd;
+	}
+
+	@Kroll.method
+	public KrollDict getConnectionState() {
+		KrollDict kd = new KrollDict();
+		kd.put("state", this.route.getConnectionState());
+		switch (this.route.getConnectionState()) {
+		case MediaRouter.RouteInfo.CONNECTION_STATE_CONNECTED:
+			kd.put("stateName", "CONNECTED");
+			break;
+		case MediaRouter.RouteInfo.CONNECTION_STATE_DISCONNECTED:
+			kd.put("stateName", "DISCONNECTED");
+			break;
+		case MediaRouter.RouteInfo.CONNECTION_STATE_CONNECTING:
+			kd.put("stateName", "CONNECTING");
+			break;
+
+		}
+		return kd;
 	}
 
 	@Kroll.method
@@ -85,6 +130,7 @@ public class RouteInfoProxy extends KrollProxy {
 		return this.route.isEnabled();
 	}
 
+	// Setters:
 	@Kroll.method
 	public void select() {
 		getMainHandler().obtainMessage(MSG_SELECT).sendToTarget();
@@ -196,5 +242,4 @@ public class RouteInfoProxy extends KrollProxy {
 	public String getApiName() {
 		return "ti.chromecast.RouteInfo";
 	}
-
 }

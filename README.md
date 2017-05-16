@@ -23,42 +23,56 @@ The used google library (google-play-service.cast and others) uses more then one
 - [x] CONNECTION_STATE_CONNECTING
 - [x] CONNECTION_STATE_CONNECTED
 
-
 ## Usage:
+
+### Initialisation
+First you have to put this line into app.js:
+```javascript
+require('ti.chromecast');
+```
 
 ### Browsing for chromecasts:
 ```javascript
 // reference the module
 var Chromecast = require('ti.chromecast');
 
-var MediaRouter = Chromecast.createMediaRouter({
-    lifecycleContainer : window, // for liefcycle management of discoverer
-    changed : function() {
-    }
+Chromecast.start({
+    changed : function(routes) {
+		routes.forEach(route) {
+			console.log(route.getName())
+		}
+ 	},
+ 	categories : [Cast.CATEGORY_LIVE_AUDIO, Cast.CATEGORY_REMOTE_PLAYBACK]
 });
 // you can ask:
 var routes = MediaRouter.getRoutes();
+routes && routes.forEach(function(){
+	// call some methods, explained below
+});
 
 // or listen to changes
 MediaRouter.addEventListener("onchanged",fucntion(e){
     e.routes.forEach(function(route){
-        console.log(route.getName());
+       // call some methods, explained below
     });
 });
 ```
-You can use callback or event listner. For binding on lifecycle the module needs a reference to to lifecycle container like window or tabgroup. Alternatively you can start/stop of listener by calling:
+You can use callback or event listener.
+With stop you can stop the listener:
 ```javascript
-MediaRouter.start();   // after opening of window
 MediaRouter.stop();    // after closing windo or hiding of dialog
 ```
 With the result (array of routes) you can build a selector for device. I.e. a Ti.UI.OptionDialog().
 
+## Methods of route
 A route has these methods:
 
 - [x] getName();
 - [x] getDescription();
 - [x] isSelected();
-- [x] toJSON(); // for all properties
+- [x] isEnabled();
+- [x] getDeviceType();
+- [x] getConnectionState()
 - [x] select(); // next chapter
 
 ### Selecting of route (device)

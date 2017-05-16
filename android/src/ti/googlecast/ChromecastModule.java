@@ -14,7 +14,7 @@ import java.util.List;
 import org.appcelerator.kroll.KrollDict;
 import org.appcelerator.kroll.KrollFunction;
 import org.appcelerator.kroll.KrollModule;
-
+import ti.googlecast.RouteInfoProxy;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Message;
@@ -52,6 +52,12 @@ public class ChromecastModule extends KrollModule {
 	public final int CONNECTION_STATE_CONNECTING = MediaRouter.RouteInfo.CONNECTION_STATE_CONNECTING;
 	@Kroll.constant
 	public final int CONNECTION_STATE_CONNECTED = MediaRouter.RouteInfo.CONNECTION_STATE_CONNECTED;
+	@Kroll.constant
+	public final String CATEGORY_LIVE_VIDEO = MediaControlIntent.CATEGORY_LIVE_VIDEO;
+	@Kroll.constant
+	public final String CATEGORY_LIVE_AUDIO = MediaControlIntent.CATEGORY_LIVE_AUDIO;
+	@Kroll.constant
+	public final String CATEGORY_REMOTE_PLAYBACK = MediaControlIntent.CATEGORY_REMOTE_PLAYBACK;
 
 	public final int NOTFOUND = -1;
 	public static int instance = 0;
@@ -93,7 +99,7 @@ public class ChromecastModule extends KrollModule {
 
 		}
 		case MSG_MEDIAROUTER_START: {
-			handleStartRouter();
+			handleStartRouter((KrollDict) (msg.obj));
 			return true;
 		}
 		case MSG_MEDIAROUTER_INIT: {
@@ -125,23 +131,27 @@ public class ChromecastModule extends KrollModule {
 		castContext = CastContext.getSharedInstance(ctx);
 		// https://github.com/googlecast/MediaRouter-Cast-Button-android/tree/master/src/com/example/mediarouter
 
-		mediaRouteSelector = new MediaRouteSelector.Builder()
-				.addControlCategory(MediaControlIntent.CATEGORY_LIVE_VIDEO)
-				.addControlCategory(MediaControlIntent.CATEGORY_LIVE_AUDIO)
-				.addControlCategory(MediaControlIntent.CATEGORY_REMOTE_PLAYBACK)
-				.addControlCategory(
-						CastMediaControlIntent
-								.categoryForRemotePlayback(DEFAULTID)) //
-				.build();
-		Log.d(LCAT, "mediaRouteSelector built");
 		// Create a MediaRouter callback for discovery events
 
 		// in onResume, currently here TODO
 
 	}
 
-	private void handleStartRouter() {
+	private void handleStartRouter(KrollDict opts) {
 		instance++;
+		String[] categories = null;
+		if (opts.containsKeyAndNotNull("categories")) {
+			categories = opts.getStringArray("categories");
+		}
+
+		MediaRouteSelector.Builder builder = new MediaRouteSelector.Builder()
+				.addControlCategory(CastMediaControlIntent
+						.categoryForRemotePlayback(DEFAULTID));
+		for (String category : categories) {
+			builder.addControlCategory(category);
+		}
+		mediaRouteSelector = builder.build();
+		Log.d(LCAT, "mediaRouteSelector built");
 		Log.d(LCAT, ">>>>>>>>>>>>> handleStartRouter " + instance);
 		if (mediaRouter == null)
 			handleInitRouter();
@@ -165,15 +175,17 @@ public class ChromecastModule extends KrollModule {
 				list.add(Utils.toKrollDict(route));
 			}
 			kd.put("routes", list.toArray());
+			List<RouteInfoProxy> plist = new ArrayList<RouteInfoProxy>();
+			for (RouteInfo route : routeInfos) {
+				plist.add(new RouteInfoProxy(route));
+			}
 			if (onChanged != null) {
-				List<RouteInfoProxy> plist = new ArrayList<RouteInfoProxy>();
-				for (RouteInfo route : routeInfos) {
-					plist.add(new RouteInfoProxy(route));
-				}
-				onChanged.call(getKrollObject(), plist.toArray());
+				onChanged.call(getKrollObject(),
+						plist.toArray(new RouteInfoProxy[routeInfos.size()]));
 			}
 			if (hasListeners("changed")) {
-
+				kd.put("routes",
+						plist.toArray(new RouteInfoProxy[routeInfos.size()]));
 				fireEvent("changed", kd);
 				// routeInfos.toArray(new RouteInfoProxy[routeInfos.size()]));
 			}
@@ -201,8 +213,8 @@ public class ChromecastModule extends KrollModule {
 			list.add(new RouteInfoProxy(route));
 		}
 		//
-		return (RouteInfoProxy[]) (list.toArray(new RouteInfoProxy[routeInfos
-				.size()]));
+		return (list.size()) > 0 ? (RouteInfoProxy[]) (list
+				.toArray(new RouteInfoProxy[routeInfos.size()])) : null;
 	}
 
 	@Kroll.method
@@ -236,9 +248,10 @@ public class ChromecastModule extends KrollModule {
 	}
 
 	@Kroll.method
-	public void start() {
+	public void start(KrollDict opts) {
 		Log.d(LCAT, "public void start()");
-		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START).sendToTarget();
+		getMainHandler().obtainMessage(MSG_MEDIAROUTER_START, opts)
+				.sendToTarget();
 	}
 
 	private class MediaRouterCallback extends MediaRouter.Callback {

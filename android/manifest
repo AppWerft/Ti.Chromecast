@@ -5,7 +5,6 @@
 version: 1.0.20
 apiversion: 2
 architectures: armeabi armeabi-v7a x86
-#respackage:  com.google.android.gms
 description: Module for realizing of Chromecast Communication
 author: APPWERFT
 license: MIT
