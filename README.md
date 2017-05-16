@@ -23,6 +23,11 @@ The used google library (google-play-service.cast and others) uses more then one
 - [x] CONNECTION_STATE_CONNECTING
 - [x] CONNECTION_STATE_CONNECTED
 
+### Category
+- [x] CATEGORY_LIVE_AUDIO
+- [x] CATEGORY_LIVE_VIDEO
+- [x] CATEGORY_REMOTE_PLAYBACK
+
 ## Usage:
 
 ### Initialisation
