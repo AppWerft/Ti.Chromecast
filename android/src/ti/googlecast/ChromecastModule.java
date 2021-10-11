@@ -18,10 +18,10 @@ import ti.googlecast.RouteInfoProxy;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Message;
-import android.support.v7.media.MediaControlIntent;
-import android.support.v7.media.MediaRouteSelector;
-import android.support.v7.media.MediaRouter;
-import android.support.v7.media.MediaRouter.RouteInfo;
+import androidx.mediarouter.media.MediaControlIntent;
+import androidx.mediarouter.media.MediaRouteSelector;
+import androidx.mediarouter.media.MediaRouter;
+import androidx.mediarouter.media.MediaRouter.RouteInfo;
 
 import org.appcelerator.kroll.annotations.Kroll;
 import org.appcelerator.kroll.common.AsyncResult;
@@ -35,7 +35,7 @@ import com.google.android.gms.cast.framework.CastContext;
 
 @Kroll.module(name = "Tichromecast", id = "ti.googlecast")
 public class ChromecastModule extends KrollModule {
-	public static final String LCAT = "TiGC🎈🎈";
+	public static final String LCAT = "TiChromecast";
 
 	@Kroll.constant
 	public final int DEVICE_TYPE_BLUETOOTH = MediaRouter.RouteInfo.DEVICE_TYPE_BLUETOOTH;
@@ -65,7 +65,6 @@ public class ChromecastModule extends KrollModule {
 	public ChromecastModule() {
 		super();
 		getMainHandler().obtainMessage(MSG_MEDIAROUTER_INIT).sendToTarget();
-
 	}
 
 	// Standard Debugging variables
@@ -125,16 +124,13 @@ public class ChromecastModule extends KrollModule {
 	/* this runs (I hope so) in main thread */
 
 	private void handleInitRouter() {
-		Log.d(LCAT, "–––––––––––––––––––––––– .. handleInitRouter()");
+		Log.d(LCAT, "handleInitRouter()");
 		ctx = TiApplication.getInstance().getApplicationContext();
 		mediaRouter = MediaRouter.getInstance(ctx);
 		castContext = CastContext.getSharedInstance(ctx);
 		// https://github.com/googlecast/MediaRouter-Cast-Button-android/tree/master/src/com/example/mediarouter
-
 		// Create a MediaRouter callback for discovery events
-
 		// in onResume, currently here TODO
-
 	}
 
 	private void handleStartRouter(KrollDict opts) {
@@ -152,7 +148,7 @@ public class ChromecastModule extends KrollModule {
 		}
 		mediaRouteSelector = builder.build();
 		Log.d(LCAT, "mediaRouteSelector built");
-		Log.d(LCAT, ">>>>>>>>>>>>> handleStartRouter " + instance);
+		Log.d(LCAT, "handleStartRouter " + instance);
 		if (mediaRouter == null)
 			handleInitRouter();
 		mediaRouter.addCallback(mediaRouteSelector, mediaRouterCallback,
@@ -266,7 +262,7 @@ public class ChromecastModule extends KrollModule {
 			synchronized (this) {
 				if (!route.isDefault()
 						&& getIndexInRoutesList(route) == NOTFOUND) {
-					Log.d(LCAT, ">>>>>>>> onRouteAdded " + route);
+					Log.d(LCAT, "onRouteAdded " + route);
 					routeInfos.add(route);
 					sendRoutingChangesBackToJavascriptLayer();
 				} else
@@ -277,7 +273,7 @@ public class ChromecastModule extends KrollModule {
 		@Override
 		public void onRouteRemoved(MediaRouter router,
 				MediaRouter.RouteInfo route) {
-			Log.d(LCAT, "<<<<<<onRouteRemoved: info=" + route);
+			Log.d(LCAT, "onRouteRemoved: info=" + route);
 			synchronized (this) {
 				Log.d(LCAT, "onRouteRemoved");
 				int index = getIndexInRoutesList(route);
@@ -289,7 +285,7 @@ public class ChromecastModule extends KrollModule {
 		}
 
 		@Override
-		public void onRouteSelected(MediaRouter router, RouteInfo info) {
+		public void onRouteSelected(MediaRouter router, RouteInfo info,  int reason) {
 			// Log.d(LCAT, "onRouteSelected: info=" + info);
 			selectedDevice = CastDevice.getFromBundle(info.getExtras());
 			// Log.d(LCAT, selectedDevice.getFriendlyName());
@@ -301,8 +297,8 @@ public class ChromecastModule extends KrollModule {
 		}
 
 		@Override
-		public void onRouteUnselected(MediaRouter router, RouteInfo route) {
-			Log.d(LCAT, "<<<<<<<<<onRouteUnselected: info=" + route);
+		public void onRouteUnselected(MediaRouter router, RouteInfo route, int reason) {
+			Log.d(LCAT, "onRouteUnselected: info=" + route);
 			selectedDevice = null;
 		}
 	}
