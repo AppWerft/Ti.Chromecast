@@ -19,9 +19,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v7.media.MediaControlIntent;
-import android.support.v7.media.MediaRouter;
-import android.support.v7.media.MediaRouter.RouteInfo;
+import androidx.mediarouter.media.MediaControlIntent;
+import androidx.mediarouter.media.MediaRouter;
+import androidx.mediarouter.media.MediaRouter.RouteInfo;
 
 import com.google.android.gms.cast.CastMediaControlIntent;
 

@@ -1,5 +1,0 @@
-"/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/build/generated/java/ti/googlecast/TichromecastBootstrap.java"
-"/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/src/ti/googlecast/CastOptionsProvider.java"
-"/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/src/ti/googlecast/ChromecastModule.java"
-"/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/src/ti/googlecast/RouteInfoProxy.java"
-"/Users/fuerst/Documents/APPC_WORKSPACE/Ti.Chromecast/android/src/ti/googlecast/Utils.java"

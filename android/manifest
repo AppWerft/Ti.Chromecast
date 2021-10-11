@@ -2,17 +2,17 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 1.0.20
-apiversion: 2
-architectures: armeabi armeabi-v7a x86
+version: 2.0.0
+apiversion: 4
+architectures: arm64-v8a armeabi-v7a x86 x86_64
 description: Module for realizing of Chromecast Communication
 author: APPWERFT
 license: MIT
-copyright: Copyright (c) 2016 by 
+copyright: Copyright (c) 2016 by
 
 # these should not be edited
 name: chromecast
 moduleid: ti.googlecast
 guid: 6f36bb13-1b2a-4189-8893-5170c834032c
 platform: android
-minsdk: 5.1.1.GA
+minsdk: 9.0.0
